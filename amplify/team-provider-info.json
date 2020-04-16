@@ -1,0 +1,15 @@
+{
+    "spal": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-shuttlepal-spal-14958-authRole",
+            "UnauthRoleArn": "arn:aws:iam::737392042775:role/amplify-shuttlepal-spal-14958-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::737392042775:role/amplify-shuttlepal-spal-14958-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-shuttlepal-spal-14958-deployment",
+            "UnauthRoleName": "amplify-shuttlepal-spal-14958-unauthRole",
+            "StackName": "amplify-shuttlepal-spal-14958",
+            "StackId": "arn:aws:cloudformation:us-east-1:737392042775:stack/amplify-shuttlepal-spal-14958/1beb5e10-7fa6-11ea-8abd-0a279eeb3bc1",
+            "AmplifyAppId": "d2lm2licm5p9w0"
+        }
+    }
+}
