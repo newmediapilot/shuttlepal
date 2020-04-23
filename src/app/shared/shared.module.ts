@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ButtonComponent } from './button/button.component';
-import { TextareaComponent } from './textarea/textarea.component';
-import { MapComponent } from './map/map.component';
-
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ButtonComponent} from './button/button.component';
+import {TextareaComponent} from './textarea/textarea.component';
 
 @NgModule({
-  declarations: [ButtonComponent, TextareaComponent, MapComponent],
+  declarations: [ButtonComponent, TextareaComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [ButtonComponent, TextareaComponent],
 })
-export class SharedModule { }
+export class SharedModule {
+}
