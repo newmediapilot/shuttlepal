@@ -10,6 +10,6 @@ export class AlertService {
   }
 
   static alert(messsage: any) {
-    window.alert(messsage)
+    window.alert(messsage);
   }
 }
