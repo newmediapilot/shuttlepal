@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TextareaComponent } from './textarea.component';
+import {TextareaComponent} from './textarea.component';
 
 describe('TextareaComponent', () => {
   let component: TextareaComponent;
@@ -8,9 +8,9 @@ describe('TextareaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextareaComponent ]
+      declarations: [TextareaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
