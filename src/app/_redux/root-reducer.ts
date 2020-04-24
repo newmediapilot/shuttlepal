@@ -3,6 +3,6 @@ import {routerReducer} from '@angular-redux/router';
 
 export const rootReducer = combineReducers(
   {
-    router: routerReducer
+    routerReducer: routerReducer
   }
 );
