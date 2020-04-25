@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from '@angular-redux/router';
+import {ReminderReducer} from '../reducer/ReminderReducer';
 
 export const rootReducer = combineReducers({
-  router: routerReducer
+  router: routerReducer,
+  reminder: ReminderReducer
 });

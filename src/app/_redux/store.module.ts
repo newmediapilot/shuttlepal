@@ -4,7 +4,7 @@ import {NgReduxModule, NgRedux, DevToolsExtension} from '@angular-redux/store';
 import {NgReduxRouterModule, NgReduxRouter} from '@angular-redux/router';
 import {createLogger} from 'redux-logger';
 import {IAppState} from './iapp-state';
-import {rootReducer} from './root-reducer';
+import {rootReducer} from './_core/root-reducer';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
