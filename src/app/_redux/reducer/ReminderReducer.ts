@@ -19,11 +19,9 @@ export const ReminderReducer = (
 ): IReminderState => {
   switch (action) {
     case ReminderAction.ReminderAddAction: {
-      // ReminderAction.ReminderAddAction
       return state;
     }
     case ReminderAction.ReminderRemoveAction: {
-      // ReminderAction.ReminderRemoveAction
       return state;
     }
   }
