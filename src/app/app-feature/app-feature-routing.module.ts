@@ -3,7 +3,9 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {AppFeatureComponent} from './app-feature.component';
 
-const routes: Routes = [{path: '', component: AppFeatureComponent}];
+const routes: Routes = [
+  {path: '', component: AppFeatureComponent}
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

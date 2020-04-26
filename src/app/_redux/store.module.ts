@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NgReduxModule, NgRedux, DevToolsExtension} from '@angular-redux/store';
-import {NgReduxRouterModule, NgReduxRouter} from '@angular-redux/router';
 import {createLogger} from 'redux-logger';
-import {IAppState, rootReducer} from './_core/root-reducer';
+import {DevToolsExtension, NgRedux, NgReduxModule} from '@angular-redux/store';
+import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
+import {AppState, IAppState} from './_core/root-state';
+import {rootReducer} from './_core/root-reducer';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
@@ -17,7 +18,7 @@ export class StoreModule {
   ) {
     store.configureStore(
       rootReducer,
-      {},
+      AppState,
       [createLogger()]);
     ngReduxRouter.initialize();
   }
