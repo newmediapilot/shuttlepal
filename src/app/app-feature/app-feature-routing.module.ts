@@ -6,9 +6,13 @@ import {ReminderItemCreateComponent} from './reminder-item-create/reminder-item-
 import {ReminderItemListComponent} from './reminder-item-list/reminder-item-list.component';
 
 const routes: Routes = [
-  {path: '', component: AppFeatureComponent},
-  {path: 'create', component: ReminderItemCreateComponent},
-  {path: 'list', component: ReminderItemListComponent},
+  {
+    path: '', component: AppFeatureComponent, children: [
+      {path: 'create', component: ReminderItemCreateComponent},
+      {path: 'list', component: ReminderItemListComponent},
+      {path: '**', redirectTo: 'list', pathMatch: 'full'},
+    ]
+  },
 ];
 
 @NgModule({
