@@ -11,6 +11,7 @@ import {ReminderReducerAction} from '../../_redux/reducer/ReminderReducerAction'
 export class ReminderItemCreateComponent implements OnInit {
 
   description: string;
+  placeholder: string;
 
   constructor(
     private redux: NgRedux<IAppState>,
@@ -19,10 +20,12 @@ export class ReminderItemCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.description = '';
+    this.placeholder = 'enter reminder text';
   }
 
-  reminderAddActionClick($event) {
-    this.redux.dispatch(this.reminderReducerAction.reminderAddAction({description: this.description}));
+  reminderAddActionRequest($event) {
+    this.redux.dispatch(this.reminderReducerAction.reminderAddActionRequest({description: this.description}));
   }
 
 }

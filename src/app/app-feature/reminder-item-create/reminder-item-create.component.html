@@ -1,2 +1,8 @@
-<textarea [ngModel]="description" rows="5"></textarea>
-<button (click)="reminderAddActionClick($event)">create</button>
+<textarea
+  [(ngModel)]="description"
+  [placeholder]="placeholder"
+  name="description"
+  rows="5">
+</textarea>
+
+<button (click)="reminderAddActionRequest($event)">create</button>

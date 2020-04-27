@@ -6,16 +6,18 @@ import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {AppState, IAppState} from './_core/root-state';
 import {rootReducer} from './_core/root-reducer';
 import {environment} from '../../environments/environment';
+import {ReminderReducerMiddleware} from './reducer/ReminderReducerMiddleware';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
-  providers: [],
+  providers: [ReminderReducerMiddleware],
 })
 export class StoreModule {
   constructor(
-    public store: NgRedux<IAppState>,
-    devTools: DevToolsExtension,
-    ngReduxRouter: NgReduxRouter
+    private store: NgRedux<IAppState>,
+    private devTools: DevToolsExtension,
+    private ngReduxRouter: NgReduxRouter,
+    private reminderReducerMiddleware: ReminderReducerMiddleware
   ) {
 
     let enhancers = [];
@@ -30,7 +32,10 @@ export class StoreModule {
     store.configureStore(
       rootReducer,
       AppState,
-      [createLogger()],
+      [
+        createLogger(),
+        ...reminderReducerMiddleware.middleware()
+      ],
       enhancers);
     ngReduxRouter.initialize();
   }

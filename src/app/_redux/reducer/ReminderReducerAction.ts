@@ -7,14 +7,35 @@ export interface IReminderReducerAction extends Action {
 }
 
 export enum ReminderActionType {
-  ReminderAddAction = 'ReminderAddAction',
+  ReminderAddActionRequest = 'ReminderAddActionRequest',
+  ReminderAddActionSuccess = 'ReminderAddActionSuccess',
+  ReminderAddActionErrorDuplicate = 'ReminderAddActionErrorDuplicate',
+  ReminderAddActionErrorEmpty = 'ReminderAddActionErrorEmpty',
 }
 
 @Injectable({providedIn: 'root'})
 export class ReminderReducerAction {
-  reminderAddAction(payload: any): IReminderReducerAction {
+  reminderAddActionRequest(payload: any): IReminderReducerAction {
     return {
-      type: ReminderActionType.ReminderAddAction,
+      type: ReminderActionType.ReminderAddActionRequest,
+      payload: payload
+    }
+  }
+  reminderAddActionSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionSuccess,
+      payload: payload
+    }
+  }
+  reminderAddActionErrorDuplicate(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionErrorDuplicate,
+      payload: payload
+    }
+  }
+  reminderAddActionErrorEmpty(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionErrorEmpty,
       payload: payload
     }
   }
