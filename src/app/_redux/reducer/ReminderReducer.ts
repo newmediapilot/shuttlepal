@@ -1,4 +1,5 @@
 import {IReminderItem} from '../interface/IReminderItem';
+import {IReminderReducerAction, ReminderActionType} from './ReminderReducerAction';
 
 export interface IReminderState {
   reminders: Array<IReminderItem>;
@@ -8,20 +9,12 @@ export const initialReminderState: IReminderState = {
   reminders: []
 };
 
-export enum ReminderAction {
-  ReminderAddAction = 'ReminderAddAction',
-  ReminderRemoveAction = 'ReminderRemoveAction',
-}
-
 export const ReminderReducer = (
   state = initialReminderState,
-  action: ReminderAction
+  action: IReminderReducerAction
 ): IReminderState => {
-  switch (action) {
-    case ReminderAction.ReminderAddAction: {
-      return state;
-    }
-    case ReminderAction.ReminderRemoveAction: {
+  switch (action.type) {
+    case ReminderActionType.ReminderAddAction: {
       return state;
     }
   }
