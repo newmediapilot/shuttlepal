@@ -11,6 +11,8 @@ export enum ReminderActionType {
   ReminderAddActionSuccess = 'ReminderAddActionSuccess',
   ReminderAddActionErrorDuplicate = 'ReminderAddActionErrorDuplicate',
   ReminderAddActionErrorEmpty = 'ReminderAddActionErrorEmpty',
+  ReminderAddActionAddLocRequest = 'ReminderAddActionAddLocRequest',
+  ReminderAddActionAddLocSuccess = 'ReminderAddActionAddLocSuccess',
   ReminderStorageSaveRequest = 'ReminderStorageSaveRequest',
 }
 
@@ -61,7 +63,40 @@ export class ReminderAction {
   }
 
   /**
-   * triggered after store is updated to save to server etc.
+   * triggered after store is updated to add location to action
+   * @param payload
+   */
+  reminderAddActionAddLocRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionAddLocRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered after a successful save to add location params to object
+   * @param payload
+   */
+  reminderAddActionRequestLocate(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionAddLocRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered after a successful add location params to object
+   * @param payload
+   */
+  reminderAddActionAddLocSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionAddLocSuccess,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered once data is ready to save to save to storage
    * @param payload
    */
   reminderStorageSaveRequest(payload: any): IReminderReducerAction {

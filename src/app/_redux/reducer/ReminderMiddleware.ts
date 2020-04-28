@@ -49,10 +49,20 @@ export class ReminderMiddleware {
     next(action);
   };
 
-  reminderAddActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+  reminderAddActionAddLocRequest = (store) => (next) => (action: IReminderReducerAction) => {
     var curState = store.getState();
-    if (action.type === ReminderActionType.ReminderAddActionSuccess) {
+    if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
+      // add location params here
+    }
+    next(action);
+  };
 
+  reminderStorageSaveRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderStorageSaveRequest) {
+      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest({
+        reminders: curState.reminder.reminders as Array<IReminderItem>
+      }))
     }
     next(action);
   };
@@ -60,7 +70,8 @@ export class ReminderMiddleware {
   middleware(): Array<Middleware> {
     return [
       this.reminderAddActionRequest,
-      this.reminderAddActionSuccess
+      this.reminderAddActionAddLocRequest,
+      this.reminderStorageSaveRequest
     ]
   }
 

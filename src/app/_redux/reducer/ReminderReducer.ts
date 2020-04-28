@@ -28,20 +28,26 @@ export const ReminderReducer = (
       }
     }
     case ReminderActionType.ReminderAddActionErrorEmpty: {
-      console.log("ReminderActionType.ReminderAddActionErrorEmpty", action);
       return {
         ...state,
         errors: [...state.errors, action.payload]
       }
     }
     case ReminderActionType.ReminderAddActionErrorDuplicate: {
-      console.log("ReminderActionType.ReminderAddActionErrorDuplicate", action);
       return {
         ...state,
         errors: [...state.errors, action.payload]
       }
     }
-
+    case ReminderActionType.ReminderAddActionAddLocRequest: {
+      return state;
+    }
+    case ReminderActionType.ReminderAddActionAddLocSuccess: {
+      return state;
+    }
+    case ReminderActionType.ReminderStorageSaveRequest: {
+      return state;
+    }
   }
   return state;
 };
