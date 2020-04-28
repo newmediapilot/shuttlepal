@@ -31,7 +31,7 @@ export class StoreModule {
 
     let middleware = [];
     middleware.push(createLogger());
-    middleware.concat(reminderReducerMiddleware.middleware());
+    middleware = middleware.concat(reminderReducerMiddleware.middleware());
 
     store.configureStore(
       rootReducer,

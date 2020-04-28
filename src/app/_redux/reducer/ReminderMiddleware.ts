@@ -2,13 +2,14 @@ import {IReminderReducerAction, ReminderActionType, ReminderAction} from './Remi
 import {Injectable} from '@angular/core';
 import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
+import {Middleware} from 'redux';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReminderMiddleware {
   constructor(private reminderReducerAction: ReminderAction) {
-
+    //
   }
 
   reminderAddActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
@@ -53,9 +54,10 @@ export class ReminderMiddleware {
     if (action.type === ReminderActionType.ReminderAddActionSuccess) {
 
     }
+    next(action);
   };
 
-  middleware() {
+  middleware(): Array<Middleware> {
     return [
       this.reminderAddActionRequest,
       this.reminderAddActionSuccess
