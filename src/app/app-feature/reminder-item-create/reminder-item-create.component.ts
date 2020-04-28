@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {NgRedux} from '@angular-redux/store';
+import {NgRedux, select} from '@angular-redux/store';
 import {IAppState} from '../../_redux/_core/root-state';
-import {ReminderReducerAction} from '../../_redux/reducer/ReminderReducerAction';
+import {ReminderAction} from '../../_redux/reducer/ReminderAction';
+import {Observable} from 'rxjs';
+import {IReminderError} from '../../_redux/interface/IReminderError';
 
 @Component({
   selector: 'app-reminder-item-create',
@@ -13,9 +15,12 @@ export class ReminderItemCreateComponent implements OnInit {
   description: string;
   placeholder: string;
 
+  @select(['reminder', 'errors'])
+  readonly errors$: Observable<Array<IReminderError>>;
+
   constructor(
     private redux: NgRedux<IAppState>,
-    private reminderReducerAction: ReminderReducerAction,
+    private reminderReducerAction: ReminderAction,
   ) {
   }
 

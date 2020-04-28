@@ -1,6 +1,6 @@
 import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
-import {IReminderReducerAction, ReminderActionType} from './ReminderReducerAction';
+import {IReminderReducerAction, ReminderActionType} from './ReminderAction';
 
 export interface IReminderState {
   reminders: Array<IReminderItem>;
@@ -23,21 +23,25 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderAddActionSuccess: {
       return {
         ...state,
-        reminders: [...state.reminders, action.payload]
+        reminders: [...state.reminders, action.payload],
+        errors: []
       }
     }
     case ReminderActionType.ReminderAddActionErrorEmpty: {
+      console.log("ReminderActionType.ReminderAddActionErrorEmpty", action);
       return {
         ...state,
-        reminders: [...state.errors, action.payload]
+        errors: [...state.errors, action.payload]
       }
     }
     case ReminderActionType.ReminderAddActionErrorDuplicate: {
+      console.log("ReminderActionType.ReminderAddActionErrorDuplicate", action);
       return {
         ...state,
-        reminders: [...state.errors, action.payload]
+        errors: [...state.errors, action.payload]
       }
     }
+
   }
   return state;
 };

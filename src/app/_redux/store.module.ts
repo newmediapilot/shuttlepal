@@ -6,18 +6,18 @@ import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {AppState, IAppState} from './_core/root-state';
 import {rootReducer} from './_core/root-reducer';
 import {environment} from '../../environments/environment';
-import {ReminderReducerMiddleware} from './reducer/ReminderReducerMiddleware';
+import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
-  providers: [ReminderReducerMiddleware],
+  providers: [ReminderMiddleware],
 })
 export class StoreModule {
   constructor(
     private store: NgRedux<IAppState>,
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
-    private reminderReducerMiddleware: ReminderReducerMiddleware
+    private reminderReducerMiddleware: ReminderMiddleware
   ) {
 
     let enhancers = [];
@@ -29,13 +29,14 @@ export class StoreModule {
       ];
     }
 
+    let middleware = [];
+    middleware.push(createLogger());
+    middleware.concat(reminderReducerMiddleware.middleware());
+
     store.configureStore(
       rootReducer,
       AppState,
-      [
-        createLogger(),
-        ...reminderReducerMiddleware.middleware()
-      ],
+      middleware,
       enhancers);
     ngReduxRouter.initialize();
   }

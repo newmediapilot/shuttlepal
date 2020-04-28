@@ -14,7 +14,7 @@ export enum ReminderActionType {
 }
 
 @Injectable({providedIn: 'root'})
-export class ReminderReducerAction {
+export class ReminderAction {
   reminderAddActionRequest(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderAddActionRequest,

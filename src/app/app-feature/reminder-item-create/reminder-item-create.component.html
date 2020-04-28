@@ -4,5 +4,7 @@
   name="description"
   rows="5">
 </textarea>
-
 <button (click)="reminderAddActionRequest($event)">create</button>
+<div *ngFor="let error of errors$ | async">
+  {{error | json}}
+</div>
