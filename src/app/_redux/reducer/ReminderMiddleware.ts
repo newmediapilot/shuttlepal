@@ -1,7 +1,7 @@
 import {IReminderReducerAction, ReminderActionType, ReminderAction} from './ReminderAction';
 import {Injectable} from '@angular/core';
 import {IReminderItem} from '../interface/IReminderItem';
-import {IReminderError} from '../interface/IReminderError';
+import {IReminderError, ReminderError} from '../interface/IReminderError';
 import {Middleware} from 'redux';
 import {ILocationStamp, LocationService} from '../../services/location.service';
 import {StorageServiceSaveKey, StorageService} from '../../services/storage.service';
@@ -38,7 +38,7 @@ export class ReminderMiddleware {
          * error: empty
          */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorEmpty({
-          description: "reminderAddActionErrorEmpty!",
+          description: ReminderError.ReminderItemErrorEmpty,
           meta: null
         } as IReminderError))
       } else if (!!curState.reminder.reminders.find((item) => item.description === action.payload.description)) {
@@ -46,7 +46,7 @@ export class ReminderMiddleware {
          * error: duplicate
          */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorDuplicate({
-          description: "reminderAddActionErrorDuplicate!",
+          description: ReminderError.ReminderItemErrorEmpty,
           meta: null
         } as IReminderError))
       } else {
