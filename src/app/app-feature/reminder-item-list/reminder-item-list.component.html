@@ -1,6 +1,17 @@
-<ul>
-  <li *ngFor="let reminder of reminders$ | async">
-    {{reminder.description}}|{{reminder.latitude}}|{{reminder.longitude}}|{{reminder.timestamp}}
-    <a href="javascript:return null;" (click)="null">delete this</a>
-  </li>
-</ul>
+<table>
+  <tbody>
+  <tr *ngFor="let reminder of reminders$ | async; index as $index;">
+    <td>{{reminder.description}}</td>
+    <td>{{reminder.latitude}}</td>
+    <td>{{reminder.longitude}}</td>
+    <td>{{reminder.timestamp}}</td>
+    <td *ngIf="confirmIndex!==$index">
+      <button (click)="reminderRemoveActionRequest($event ,$index)">delete</button>
+    </td>
+    <td *ngIf="confirmIndex===$index">Are you sure?
+      <button (click)="reminderRemoveActionRequestConfirm($event, reminder)">confirm</button>
+      <button (click)="reminderRemoveActionRequestCancel()">cancel</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
