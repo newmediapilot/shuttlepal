@@ -1,1 +1,5 @@
-list!
+<ul>
+  <li *ngFor="let reminder of reminders$ | async">
+    {{reminder.description}}|{{reminder.latitude}}|{{reminder.longitude}}|{{reminder.timestamp}}
+  </li>
+</ul>
