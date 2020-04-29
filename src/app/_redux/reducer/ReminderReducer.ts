@@ -17,6 +17,18 @@ export const ReminderReducer = (
   action: IReminderReducerAction
 ): IReminderState => {
   switch (action.type) {
+    case ReminderActionType.ReminderStorageGetRequest: {
+      return state;
+    }
+    case ReminderActionType.ReminderStorageGetSuccess: {
+      return {
+        ...state,
+        reminders: action.payload
+      };
+    }
+    case ReminderActionType.ReminderStorageGetError: {
+      return state;
+    }
     case ReminderActionType.ReminderAddActionRequest: {
       return state;
     }

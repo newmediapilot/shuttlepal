@@ -4,6 +4,7 @@ import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
 import {Middleware} from 'redux';
 import {ILocationStamp, LocationService} from '../../services/location.service';
+import {StorageServiceSaveKey, StorageService} from '../../services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,19 @@ export class ReminderMiddleware {
   constructor(private reminderReducerAction: ReminderAction) {
     //
   }
+
+  reminderStorageGetRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderStorageGetRequest) {
+      try {
+        let reminders: Array<IReminderItem> = JSON.parse(StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems));
+        store.dispatch(this.reminderReducerAction.reminderStorageGetSuccess(reminders))
+      } catch (e) {
+        store.dispatch(this.reminderReducerAction.reminderStorageGetError(e))
+      }
+    }
+    next(action);
+  };
 
   reminderAddActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     var curState = store.getState();
@@ -76,22 +90,40 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderAddActionAddLocSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderAddActionAddLocSuccess) {
+      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
+    }
+    next(action);
+  };
+
   reminderStorageSaveRequest = (store) => (next) => (action: IReminderReducerAction) => {
     var curState = store.getState();
     if (action.type === ReminderActionType.ReminderStorageSaveRequest) {
-      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest({
-        reminders: curState.reminder.reminders as Array<IReminderItem>
-      }))
+      StorageService.saveLocalStore(StorageServiceSaveKey.ReminderItems, JSON.stringify(curState.reminder.reminders));
+      store.dispatch(this.reminderReducerAction.reminderStorageSaveSuccess(null));
+    }
+    next(action);
+  };
+
+  reminderStorageSaveSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderStorageSaveSuccess) {
+      // do something
     }
     next(action);
   };
 
   middleware(): Array<Middleware> {
     return [
+      this.reminderStorageGetRequest,
       this.reminderAddActionRequest,
+      this.reminderAddActionSuccess,
       this.reminderAddActionAddLocRequest,
+      this.reminderAddActionAddLocSuccess,
       this.reminderStorageSaveRequest,
-      this.reminderAddActionSuccess
+      this.reminderStorageSaveSuccess
     ]
   }
 

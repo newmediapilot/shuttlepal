@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 import {createLogger} from 'redux-logger';
 import {DevToolsExtension, NgRedux, NgReduxModule} from '@angular-redux/store';
 import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
-import {AppState, IAppState} from './_core/root-state';
-import {rootReducer} from './_core/root-reducer';
 import {environment} from '../../environments/environment';
 import {ReminderMiddleware} from './reducer/ReminderMiddleware';
+import {AppState, IAppState} from './_core/RootState';
+import {rootReducer} from './_core/RootReducer';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],

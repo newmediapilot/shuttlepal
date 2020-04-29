@@ -1,4 +1,7 @@
 import {Component} from '@angular/core';
+import {NgRedux} from '@angular-redux/store';
+import {IReminderReducerAction, ReminderActionType} from './_redux/reducer/ReminderAction';
+import {IAppState} from './_redux/_core/RootState';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'shuttle-pal';
+  constructor(private store: NgRedux<IAppState>) {
+    this.store.dispatch({
+      type: ReminderActionType.ReminderStorageGetRequest,
+      payload: null
+    } as IReminderReducerAction);
+  }
 }
