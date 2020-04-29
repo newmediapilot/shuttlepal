@@ -46,7 +46,7 @@ export class ReminderMiddleware {
          * error: duplicate
          */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorDuplicate({
-          description: ReminderError.ReminderItemErrorEmpty,
+          description: ReminderError.ReminderItemErrorDuplicate,
           meta: null
         } as IReminderError))
       } else {
