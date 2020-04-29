@@ -17,6 +17,9 @@ export const ReminderReducer = (
   action: IReminderReducerAction
 ): IReminderState => {
   switch (action.type) {
+    /**
+     * storage
+     */
     case ReminderActionType.ReminderStorageGetRequest: {
       return state;
     }
@@ -29,6 +32,15 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderStorageGetError: {
       return state;
     }
+    case ReminderActionType.ReminderStorageSaveRequest: {
+      return state;
+    }
+    case ReminderActionType.ReminderStorageSaveSuccess: {
+      return state;
+    }
+    /**
+     * add item
+     */
     case ReminderActionType.ReminderAddActionRequest: {
       return state;
     }
@@ -57,10 +69,13 @@ export const ReminderReducer = (
         errors: []
       }
     }
-    case ReminderActionType.ReminderStorageSaveRequest: {
+    /**
+     * remove item
+     */
+    case ReminderActionType.ReminderRemoveActionRequest: {
       return state;
     }
-    case ReminderActionType.ReminderStorageSaveSuccess: {
+    case ReminderActionType.ReminderRemoveActionSuccess: {
       return state;
     }
   }

@@ -1,5 +1,6 @@
 <ul>
   <li *ngFor="let reminder of reminders$ | async">
     {{reminder.description}}|{{reminder.latitude}}|{{reminder.longitude}}|{{reminder.timestamp}}
+    <a href="javascript:return null;" (click)="null">delete this</a>
   </li>
 </ul>

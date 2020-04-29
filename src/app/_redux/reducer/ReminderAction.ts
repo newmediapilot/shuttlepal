@@ -16,6 +16,8 @@ export enum ReminderActionType {
   ReminderAddActionErrorEmpty = 'ReminderAddActionErrorEmpty',
   ReminderAddActionAddLocRequest = 'ReminderAddActionAddLocRequest',
   ReminderAddActionAddLocSuccess = 'ReminderAddActionAddLocSuccess',
+  ReminderRemoveActionRequest = 'ReminderRemoveActionRequest',
+  ReminderRemoveActionSuccess = 'ReminderRemoveActionSuccess',
   ReminderStorageSaveRequest = 'ReminderStorageSaveRequest',
   ReminderStorageSaveError = 'ReminderStorageSaveError',
   ReminderStorageSaveSuccess = 'ReminderStorageSaveSuccess',
@@ -53,6 +55,39 @@ export class ReminderAction {
   reminderStorageGetError(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderStorageGetError,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered once data is ready to save to save to storage
+   * @param payload
+   */
+  reminderStorageSaveRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderStorageSaveRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered after data is errored while saving to storage
+   * @param payload
+   */
+  reminderStorageSaveError(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderStorageSaveError,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered after data is errored while saving to storage
+   * @param payload
+   */
+  reminderStorageSaveSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderStorageSaveSuccess,
       payload: payload
     }
   }
@@ -124,45 +159,23 @@ export class ReminderAction {
   }
 
   /**
-   * triggered after a successful add location params to object
+   * triggered to request a removal of an item
    * @param payload
    */
-  reminderAddActionAddLocSuccess(payload: any): IReminderReducerAction {
+  reminderRemoveActionRequest(payload: any): IReminderReducerAction {
     return {
-      type: ReminderActionType.ReminderAddActionAddLocSuccess,
+      type: ReminderActionType.ReminderRemoveActionRequest,
       payload: payload
     }
   }
 
   /**
-   * triggered once data is ready to save to save to storage
+   * triggered once item is removed successfully
    * @param payload
    */
-  reminderStorageSaveRequest(payload: any): IReminderReducerAction {
+  reminderRemoveActionSuccess(payload: any): IReminderReducerAction {
     return {
-      type: ReminderActionType.ReminderStorageSaveRequest,
-      payload: payload
-    }
-  }
-
-  /**
-   * triggered after data is errored while saving to storage
-   * @param payload
-   */
-  reminderStorageSaveError(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageSaveError,
-      payload: payload
-    }
-  }
-
-  /**
-   * triggered after data is errored while saving to storage
-   * @param payload
-   */
-  reminderStorageSaveSuccess(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageSaveSuccess,
+      type: ReminderActionType.ReminderRemoveActionSuccess,
       payload: payload
     }
   }
