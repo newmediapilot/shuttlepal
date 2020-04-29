@@ -33,19 +33,22 @@ export const ReminderReducer = (
       }
     }
     case ReminderActionType.ReminderAddActionSuccess: {
+      return state;
+    }
+    case ReminderActionType.ReminderAddActionAddLocRequest: {
+      return state;
+    }
+    case ReminderActionType.ReminderAddActionAddLocSuccess: {
       return {
         ...state,
         reminders: [...state.reminders, action.payload],
         errors: []
       }
     }
-    case ReminderActionType.ReminderAddActionAddLocRequest: {
-      return state;
-    }
-    case ReminderActionType.ReminderAddActionAddLocSuccess: {
-      return state;
-    }
     case ReminderActionType.ReminderStorageSaveRequest: {
+      return state;
+    }
+    case ReminderActionType.ReminderStorageSaveSuccess: {
       return state;
     }
   }
