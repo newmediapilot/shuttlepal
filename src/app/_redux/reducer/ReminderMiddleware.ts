@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
 import {Middleware} from 'redux';
+import {ILocationStamp, LocationService} from '../../services/location.service';
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +50,28 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderAddActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderAddActionSuccess) {
+      store.dispatch(this.reminderReducerAction.reminderAddActionAddLocRequest(action.payload as IReminderItem))
+    }
+    next(action);
+  };
+
   reminderAddActionAddLocRequest = (store) => (next) => (action: IReminderReducerAction) => {
     var curState = store.getState();
     if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
-      // add location params here
+      LocationService.getLocation().subscribe(
+        (position: ILocationStamp) => {
+          console.log('Current Position: ', position);
+          action.payload.latitude = position.latitude;
+          action.payload.longitude = position.longitude;
+          store.dispatch(this.reminderReducerAction.reminderAddActionAddLocSuccess(action.payload as IReminderItem))
+        },
+        (err) => {
+          console.log('Error Getting Location: ', err);
+        }
+      )
     }
     next(action);
   };
@@ -71,7 +90,8 @@ export class ReminderMiddleware {
     return [
       this.reminderAddActionRequest,
       this.reminderAddActionAddLocRequest,
-      this.reminderStorageSaveRequest
+      this.reminderStorageSaveRequest,
+      this.reminderAddActionSuccess
     ]
   }
 

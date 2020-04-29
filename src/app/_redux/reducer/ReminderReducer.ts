@@ -20,13 +20,6 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderAddActionRequest: {
       return state;
     }
-    case ReminderActionType.ReminderAddActionSuccess: {
-      return {
-        ...state,
-        reminders: [...state.reminders, action.payload],
-        errors: []
-      }
-    }
     case ReminderActionType.ReminderAddActionErrorEmpty: {
       return {
         ...state,
@@ -37,6 +30,13 @@ export const ReminderReducer = (
       return {
         ...state,
         errors: [...state.errors, action.payload]
+      }
+    }
+    case ReminderActionType.ReminderAddActionSuccess: {
+      return {
+        ...state,
+        reminders: [...state.reminders, action.payload],
+        errors: []
       }
     }
     case ReminderActionType.ReminderAddActionAddLocRequest: {
