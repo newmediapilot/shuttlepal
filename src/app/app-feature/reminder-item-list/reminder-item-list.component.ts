@@ -3,7 +3,7 @@ import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {IAppState} from '../../_redux/_core/RootState';
 import {ReminderAction} from '../../_redux/reducer/ReminderAction';
-import {IReminderItems} from '../../_redux/interface/IReminderItems';
+import {IReminderItem} from '../../_redux/interface/IReminderItem';
 
 @Component({
   selector: 'app-reminder-item-list',
@@ -13,7 +13,7 @@ import {IReminderItems} from '../../_redux/interface/IReminderItems';
 export class ReminderItemListComponent implements OnInit {
 
   @select(['reminder', 'reminders'])
-  readonly reminders$: Observable<Array<IReminderItems>>;
+  readonly reminders$: Observable<Array<IReminderItem>>;
 
   public confirmIndex: number = -1;
 

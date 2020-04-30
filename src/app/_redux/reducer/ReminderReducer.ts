@@ -1,6 +1,7 @@
 import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
 import {IReminderReducerAction, ReminderActionType} from './ReminderAction';
+import * as loDash from "lodash";
 
 export interface IReminderState {
   reminders: Array<IReminderItem>;
@@ -38,6 +39,9 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderStorageSaveSuccess: {
       return state;
     }
+    case ReminderActionType.ReminderStorageSaveError: {
+      return state;
+    }
     /**
      * add item
      */
@@ -60,20 +64,23 @@ export const ReminderReducer = (
       return state;
     }
     case ReminderActionType.ReminderAddActionAddLocRequest: {
-      return state;
-    }
-    case ReminderActionType.ReminderAddActionAddLocSuccess: {
       return {
         ...state,
         reminders: [...state.reminders, action.payload],
         errors: []
       }
     }
+    case ReminderActionType.ReminderAddActionAddLocSuccess: {
+      return state;
+    }
     /**
      * remove item
      */
     case ReminderActionType.ReminderRemoveActionRequest: {
-      return state;
+      return {
+        ...state,
+        reminders: loDash.reject(state.reminders, action.payload)
+      };
     }
     case ReminderActionType.ReminderRemoveActionSuccess: {
       return state;

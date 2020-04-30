@@ -2,20 +2,20 @@ import {IReminderReducerAction, ReminderActionType, ReminderAction} from './Remi
 import {Injectable} from '@angular/core';
 import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError, ReminderError} from '../interface/IReminderError';
-import {Middleware} from 'redux';
 import {ILocationStamp, LocationService} from '../../services/location.service';
 import {StorageServiceSaveKey, StorageService} from '../../services/storage.service';
+import {IAppState} from '../_core/RootState';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReminderMiddleware {
-  constructor(private reminderReducerAction: ReminderAction) {
+  constructor(
+    private reminderReducerAction: ReminderAction) {
     //
   }
 
   reminderStorageGetRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderStorageGetRequest) {
       try {
         let reminders: Array<IReminderItem> = JSON.parse(StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems));
@@ -30,26 +30,36 @@ export class ReminderMiddleware {
     next(action);
   };
 
-  reminderStorageSaveRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
-    if (action.type === ReminderActionType.ReminderStorageSaveRequest) {
-      StorageService.saveLocalStore(StorageServiceSaveKey.ReminderItems, JSON.stringify(curState.reminder.reminders));
-      store.dispatch(this.reminderReducerAction.reminderStorageSaveSuccess(null));
+  reminderStorageGetError = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderStorageGetError) {
+      console.error('Error Fetching Storage');
     }
     next(action);
   };
 
-  reminderStorageSaveSuccess = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
-    if (action.type === ReminderActionType.ReminderStorageSaveSuccess) {
-      // do something
+  reminderStorageSaveRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderStorageSaveRequest) {
+      var getState: IAppState = store.getState();
+      if (StorageService.saveLocalStore(StorageServiceSaveKey.ReminderItems, JSON.stringify(getState.reminder.reminders as Array<IReminderItem>))) {
+        store.dispatch(this.reminderReducerAction.reminderStorageSaveSuccess(null));
+      } else {
+        store.dispatch(this.reminderReducerAction.reminderStorageSaveError(null));
+      }
+    }
+    next(action);
+  };
+
+  reminderStorageSaveError = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderStorageSaveError) {
+      var getState: IAppState = store.getState();
+      console.error('Error Saving Storage');
     }
     next(action);
   };
 
   reminderAddActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderAddActionRequest) {
+      var getState: IAppState = store.getState();
       /**
        * test payload contents
        */
@@ -61,7 +71,7 @@ export class ReminderMiddleware {
           description: ReminderError.ReminderItemErrorEmpty,
           meta: null
         } as IReminderError))
-      } else if (!!curState.reminder.reminders.find((item) => item.description === action.payload.description)) {
+      } else if (!!getState.reminder.reminders.find((item) => item.description === action.payload.description)) {
         /**
          * error: duplicate
          */
@@ -85,24 +95,24 @@ export class ReminderMiddleware {
   };
 
   reminderAddActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderAddActionSuccess) {
-      store.dispatch(this.reminderReducerAction.reminderAddActionAddLocRequest(action.payload as IReminderItem))
+      var getState: IAppState = store.getState();
+      store.dispatch(this.reminderReducerAction.reminderAddActionAddLocRequest(action.payload as IReminderItem));
     }
     next(action);
   };
 
   reminderAddActionAddLocRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
+      var getState: IAppState = store.getState();
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
           action.payload.latitude = position.latitude;
           action.payload.longitude = position.longitude;
-          store.dispatch(this.reminderReducerAction.reminderAddActionAddLocSuccess(action.payload as IReminderItem))
+          store.dispatch(this.reminderReducerAction.reminderAddActionAddLocSuccess(action.payload as IReminderItem));
         },
         (err) => {
-          console.log('Error Getting Location: ', err);
+          console.error('Error Getting Location: ', err);
         }
       )
     }
@@ -110,38 +120,44 @@ export class ReminderMiddleware {
   };
 
   reminderAddActionAddLocSuccess = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderAddActionAddLocSuccess) {
+      var getState: IAppState = store.getState();
       store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
     }
     next(action);
   };
 
   reminderRemoveActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
-      store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null));
+      /**
+       * temporary hack
+       */
+      setTimeout(store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null)));
     }
     next(action);
   };
 
   reminderRemoveActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
-    var curState = store.getState();
     if (action.type === ReminderActionType.ReminderRemoveActionSuccess) {
-      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
+      var getState: IAppState = store.getState();
+      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(getState.reminder.reminders as Array<IReminderItem>));
     }
     next(action);
   };
 
-  middleware(): Array<Middleware> {
+  middleware(): Array<Function> {
+    console.log('ReminderMiddleware', this);
     return [
-      this.reminderStorageGetRequest,
-      this.reminderAddActionRequest,
-      this.reminderAddActionSuccess,
       this.reminderAddActionAddLocRequest,
       this.reminderAddActionAddLocSuccess,
+      this.reminderAddActionRequest,
+      this.reminderAddActionSuccess,
+      this.reminderRemoveActionRequest,
+      this.reminderRemoveActionSuccess,
+      this.reminderStorageGetError,
+      this.reminderStorageGetRequest,
+      this.reminderStorageSaveError,
       this.reminderStorageSaveRequest,
-      this.reminderStorageSaveSuccess
     ]
   }
 

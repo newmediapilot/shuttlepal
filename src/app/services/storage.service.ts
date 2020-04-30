@@ -13,8 +13,17 @@ export class StorageService {
 
   }
 
-  static saveLocalStore(type: string, payload: any) {
-    localStorage.setItem(type, payload);
+  static saveLocalStore(type: string, payload: any): boolean {
+    if (!!localStorage) {
+      localStorage.setItem(type, payload);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static canLocalStore() {
+    return !!localStorage;
   }
 
   static fetchLocalStore(type: string): string {
