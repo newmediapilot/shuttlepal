@@ -35,7 +35,8 @@ export class ReminderItemListComponent implements OnInit {
    * approve deletion
    */
   reminderRemoveActionRequestConfirm($event, reminder) {
-    this.redux.dispatch(this.reminderReducerAction.reminderRemoveActionRequest(reminder))
+    this.redux.dispatch(this.reminderReducerAction.reminderRemoveActionRequest(reminder));
+    this.reminderRemoveActionRequestCancel();
   }
 
   /**
