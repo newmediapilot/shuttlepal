@@ -97,7 +97,6 @@ export class ReminderMiddleware {
     if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
-          console.log('Current Position: ', position);
           action.payload.latitude = position.latitude;
           action.payload.longitude = position.longitude;
           store.dispatch(this.reminderReducerAction.reminderAddActionAddLocSuccess(action.payload as IReminderItem))
