@@ -148,6 +148,17 @@ export class ReminderAction {
   }
 
   /**
+   * triggered after add location to action
+   * @param payload
+   */
+  reminderAddActionAddLocSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionAddLocSuccess,
+      payload: payload
+    }
+  }
+
+  /**
    * triggered after a successful save to add location params to object
    * @param payload
    */
