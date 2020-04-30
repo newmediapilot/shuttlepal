@@ -2,6 +2,7 @@ import {IReminderItem} from '../interface/IReminderItem';
 import {IReminderError} from '../interface/IReminderError';
 import {IReminderReducerAction, ReminderActionType} from './ReminderAction';
 import * as loDash from "lodash";
+import {StorageAction, StorageActionType} from './StorageAction';
 
 export interface IReminderState {
   reminders: Array<IReminderItem>;
@@ -21,26 +22,11 @@ export const ReminderReducer = (
     /**
      * storage
      */
-    case ReminderActionType.ReminderStorageGetRequest: {
-      return state;
-    }
-    case ReminderActionType.ReminderStorageGetSuccess: {
+    case StorageActionType.StorageGetSuccess: {
       return {
         ...state,
-        reminders: action.payload
+        reminders: (action.payload) || []
       };
-    }
-    case ReminderActionType.ReminderStorageGetError: {
-      return state;
-    }
-    case ReminderActionType.ReminderStorageSaveRequest: {
-      return state;
-    }
-    case ReminderActionType.ReminderStorageSaveSuccess: {
-      return state;
-    }
-    case ReminderActionType.ReminderStorageSaveError: {
-      return state;
     }
     /**
      * add item

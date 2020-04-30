@@ -15,9 +15,10 @@ export class StorageService {
   }
 
   static saveLocalStore(type: string, payload: any): Observable<any> {
+    console.log('saveLocalStore', type, payload);
     return new Observable((observer) => {
       if (!!localStorage) {
-        observer.next(localStorage.setItem(type, payload));
+        observer.next(localStorage.setItem(type, JSON.stringify(payload)));
       } else {
         observer.error({
           description: 'Local storage not found in navigator',
@@ -30,7 +31,8 @@ export class StorageService {
   static fetchLocalStore(type: string): Observable<any> {
     return new Observable((observer) => {
       if (!!localStorage) {
-        observer.next(localStorage.getItem(type));
+        console.log('fetchLocalStore', type, JSON.parse(localStorage.getItem(type)));
+        observer.next(JSON.parse(localStorage.getItem(type)));
       } else {
         observer.error({
           description: 'Local storage not found in navigator',

@@ -5,65 +5,18 @@ import {IReminderError, ReminderError} from '../interface/IReminderError';
 import {ILocationStamp, LocationService} from '../../services/location.service';
 import {StorageServiceSaveKey, StorageService} from '../../services/storage.service';
 import {IAppState} from '../_core/RootState';
-import {Observable} from 'rxjs';
-import {timeout} from 'rxjs/operators';
+import {StorageAction} from './StorageAction';
+import {IStoragePayload} from '../interface/IStoragePayload';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReminderMiddleware {
   constructor(
-    private reminderReducerAction: ReminderAction) {
+    private reminderReducerAction: ReminderAction,
+    private storageAction: StorageAction) {
     //
   }
-
-  reminderStorageGetRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    if (action.type === ReminderActionType.ReminderStorageGetRequest) {
-      StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems).subscribe(
-        (storage: string) => {
-          let reminders: Array<IReminderItem> = JSON.parse(storage);
-          if (!reminders) {
-            reminders = [];
-          }
-          store.dispatch(this.reminderReducerAction.reminderStorageGetSuccess(reminders))
-        },
-        (e) => {
-          store.dispatch(this.reminderReducerAction.reminderStorageGetError(e))
-        }
-      );
-    }
-    next(action);
-  };
-
-  reminderStorageGetError = (store) => (next) => (action: IReminderReducerAction) => {
-    if (action.type === ReminderActionType.ReminderStorageGetError) {
-      console.error('Error Fetching Storage');
-    }
-    next(action);
-  };
-
-  reminderStorageSaveRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    if (action.type === ReminderActionType.ReminderStorageSaveRequest) {
-      var getState: IAppState = store.getState();
-      StorageService.saveLocalStore(StorageServiceSaveKey.ReminderItems, JSON.stringify(getState.reminder.reminders)).subscribe(
-        () => {
-          store.dispatch(this.reminderReducerAction.reminderStorageSaveSuccess(null));
-        },
-        (e) => {
-          store.dispatch(this.reminderReducerAction.reminderStorageSaveError(e));
-        }
-      );
-    }
-    next(action);
-  };
-
-  reminderStorageSaveError = (store) => (next) => (action: IReminderReducerAction) => {
-    if (action.type === ReminderActionType.ReminderStorageSaveError) {
-      var getState: IAppState = store.getState();
-      console.error('Error Saving Storage');
-    }
-    next(action);
-  };
 
   reminderAddActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderAddActionRequest) {
@@ -129,7 +82,11 @@ export class ReminderMiddleware {
 
   reminderAddActionAddLocSuccess = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderAddActionAddLocSuccess) {
-      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder.reminders
+      } as IStoragePayload));
     }
     next(action);
   };
@@ -145,7 +102,11 @@ export class ReminderMiddleware {
 
   reminderRemoveActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderRemoveActionSuccess) {
-      store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder.reminders
+      } as IStoragePayload));
     }
     next(action);
   };
@@ -158,11 +119,7 @@ export class ReminderMiddleware {
       this.reminderAddActionRequest,
       this.reminderAddActionSuccess,
       this.reminderRemoveActionRequest,
-      this.reminderRemoveActionSuccess,
-      this.reminderStorageGetError,
-      this.reminderStorageGetRequest,
-      this.reminderStorageSaveError,
-      this.reminderStorageSaveRequest,
+      this.reminderRemoveActionSuccess
     ]
   }
 

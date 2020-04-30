@@ -7,9 +7,6 @@ export interface IReminderReducerAction extends Action {
 }
 
 export enum ReminderActionType {
-  ReminderStorageGetRequest = 'ReminderStorageGetRequest',
-  ReminderStorageGetSuccess = 'ReminderStorageGetSuccess',
-  ReminderStorageGetError = 'ReminderStorageGetError',
   ReminderAddActionRequest = 'ReminderAddActionRequest',
   ReminderAddActionSuccess = 'ReminderAddActionSuccess',
   ReminderAddActionErrorDuplicate = 'ReminderAddActionErrorDuplicate',
@@ -18,79 +15,10 @@ export enum ReminderActionType {
   ReminderAddActionAddLocSuccess = 'ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = 'ReminderRemoveActionRequest',
   ReminderRemoveActionSuccess = 'ReminderRemoveActionSuccess',
-  ReminderStorageSaveRequest = 'ReminderStorageSaveRequest',
-  ReminderStorageSaveError = 'ReminderStorageSaveError',
-  ReminderStorageSaveSuccess = 'ReminderStorageSaveSuccess',
 }
 
 @Injectable({providedIn: 'root'})
 export class ReminderAction {
-
-  /**
-   * request for storage to be fetched from system
-   * @param payload
-   */
-  reminderStorageGetRequest(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageGetRequest,
-      payload: payload
-    }
-  }
-
-  /**
-   * storage from system fetched successfully
-   * @param payload
-   */
-  reminderStorageGetSuccess(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageGetSuccess,
-      payload: payload
-    }
-  }
-
-  /**
-   * trigger error if store request fails
-   * @param payload
-   */
-  reminderStorageGetError(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageGetError,
-      payload: payload
-    }
-  }
-
-  /**
-   * triggered once data is ready to save to save to storage
-   * @param payload
-   */
-  reminderStorageSaveRequest(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageSaveRequest,
-      payload: payload
-    }
-  }
-
-  /**
-   * triggered after data is errored while saving to storage
-   * @param payload
-   */
-  reminderStorageSaveError(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageSaveError,
-      payload: payload
-    }
-  }
-
-  /**
-   * triggered after data is errored while saving to storage
-   * @param payload
-   */
-  reminderStorageSaveSuccess(payload: any): IReminderReducerAction {
-    return {
-      type: ReminderActionType.ReminderStorageSaveSuccess,
-      payload: payload
-    }
-  }
 
   /**
    * triggered by a button requesting an action to be added to store via payload
