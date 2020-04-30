@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Observable, Observer} from 'rxjs';
 
 export enum StorageServiceSaveKey {
   ReminderItems = 'ReminderItems',
@@ -13,20 +14,30 @@ export class StorageService {
 
   }
 
-  static saveLocalStore(type: string, payload: any): boolean {
-    if (!!localStorage) {
-      localStorage.setItem(type, payload);
-      return true;
-    } else {
-      return false;
-    }
+  static saveLocalStore(type: string, payload: any): Observable<any> {
+    return new Observable((observer) => {
+      if (!!localStorage) {
+        observer.next(localStorage.setItem(type, payload));
+      } else {
+        observer.error({
+          description: 'Local storage not found in navigator',
+          error: null
+        });
+      }
+    });
   }
 
-  static canLocalStore() {
-    return !!localStorage;
+  static fetchLocalStore(type: string): Observable<any> {
+    return new Observable((observer) => {
+      if (!!localStorage) {
+        observer.next(localStorage.getItem(type));
+      } else {
+        observer.error({
+          description: 'Local storage not found in navigator',
+          error: null
+        });
+      }
+    });
   }
 
-  static fetchLocalStore(type: string): string {
-    return localStorage.getItem(type);
-  }
 }
