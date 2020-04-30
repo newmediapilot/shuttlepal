@@ -19,6 +19,9 @@ export class ReminderMiddleware {
     if (action.type === ReminderActionType.ReminderStorageGetRequest) {
       try {
         let reminders: Array<IReminderItem> = JSON.parse(StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems));
+        if (!reminders) {
+          reminders = [];
+        }
         store.dispatch(this.reminderReducerAction.reminderStorageGetSuccess(reminders))
       } catch (e) {
         store.dispatch(this.reminderReducerAction.reminderStorageGetError(e))
