@@ -17,15 +17,15 @@ export class ReminderMiddleware {
 
   reminderStorageGetRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderStorageGetRequest) {
-      try {
-        let reminders: Array<IReminderItem> = JSON.parse(StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems));
-        if (!reminders) {
-          reminders = [];
+      StorageService.fetchLocalStore(StorageServiceSaveKey.ReminderItems).subscribe(
+        (storage: string) => {
+          let reminders: Array<IReminderItem> = JSON.parse(storage);
+          store.dispatch(this.reminderReducerAction.reminderStorageGetSuccess(reminders))
+        },
+        (e) => {
+          store.dispatch(this.reminderReducerAction.reminderStorageGetError(e))
         }
-        store.dispatch(this.reminderReducerAction.reminderStorageGetSuccess(reminders))
-      } catch (e) {
-        store.dispatch(this.reminderReducerAction.reminderStorageGetError(e))
-      }
+      );
     }
     next(action);
   };
