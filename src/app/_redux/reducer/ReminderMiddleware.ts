@@ -117,9 +117,17 @@ export class ReminderMiddleware {
     next(action);
   };
 
-  reminderRemoveRequest = (store) => (next) => (action: IReminderReducerAction) => {
+  reminderRemoveActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     var curState = store.getState();
-    if (action.type === ReminderActionType.ReminderAddActionAddLocSuccess) {
+    if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
+      store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null));
+    }
+    next(action);
+  };
+
+  reminderRemoveActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    var curState = store.getState();
+    if (action.type === ReminderActionType.ReminderRemoveActionSuccess) {
       store.dispatch(this.reminderReducerAction.reminderStorageSaveRequest(null));
     }
     next(action);
