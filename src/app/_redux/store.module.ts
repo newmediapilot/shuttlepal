@@ -1,13 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {createLogger} from 'redux-logger';
 import {DevToolsExtension, NgRedux, NgReduxModule} from '@angular-redux/store';
 import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {environment} from '../../environments/environment';
 import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
-import {StorageMiddleware2} from './reducer/StorageMiddleware2';
+import {combineEpics, createEpicMiddleware} from 'redux-observable';
+import {StorageEpic} from './reducer/StorageEpic';
+import {RootMiddleware} from './_core/RootMiddleware';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
@@ -18,8 +19,8 @@ export class StoreModule {
     private store: NgRedux<IAppState>,
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
-    private reminderReducerMiddleware: ReminderMiddleware,
-    private storageMiddleware: StorageMiddleware2
+    private rootMiddleware: RootMiddleware,
+    private storageEpic: StorageEpic
   ) {
 
     let enhancers = [];
@@ -31,16 +32,16 @@ export class StoreModule {
       ];
     }
 
-    let middleware = [];
-    middleware.push(createLogger());
-    middleware = middleware.concat(reminderReducerMiddleware.middleware());
-    middleware = middleware.concat(storageMiddleware.middleware());
-
     store.configureStore(
       rootReducer,
       AppState,
-      middleware,
+      this.rootMiddleware.middleware(),
       enhancers);
+
+    const epicMiddleware = createEpicMiddleware();
+    epicMiddleware.run(combineEpics(storageEpic.storageSaveRequest));
+
     ngReduxRouter.initialize();
+
   }
 }
