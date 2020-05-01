@@ -10,14 +10,14 @@ export class StorageEpic {
   constructor() {
   }
 
-  storageSaveRequest = action$ => {
-    console.log('is this workign...');
-    return action$.pipe(
-      ofType(StorageActionType.StorageSaveRequest),
-      map((payload) => {
-        console.log('storageSaveRequest');
-      }),
-      mapTo({type: 'helloooooooooooooooooooooooooo'})
-    );
+  storageSaveRequest = (action$) => {
+    return action$.ofType(StorageActionType.StorageSaveRequest)
+      .pipe(
+        ofType(StorageActionType.StorageSaveRequest),
+        map((payload) => {
+          console.log('storageSaveRequest');
+        }),
+        mapTo({type: 'helloooooooooooooooooooooooooo'})
+      )
   }
 }
