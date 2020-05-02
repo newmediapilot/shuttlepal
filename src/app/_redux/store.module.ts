@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
-import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {StorageEpic} from './reducer/StorageEpic';
 import {RootMiddleware} from './_core/RootMiddleware';
 
