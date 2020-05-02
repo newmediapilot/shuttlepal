@@ -30,7 +30,7 @@ export class StorageMiddleware2 {
 
   storageGetError = (store) => (next) => (action: IStorageAction) => {
     if (action.type === StorageActionType.StorageGetError) {
-      console.error('Error Fetching Storage');
+      // noop
     }
     next(action);
   };
@@ -55,8 +55,7 @@ export class StorageMiddleware2 {
 
   storageSaveError = (store) => (next) => (action: IStorageAction) => {
     if (action.type === StorageActionType.StorageSaveError) {
-      var getState: IAppState = store.getState();
-      console.error('Error Saving Storage');
+      // noop
     }
     next(action);
   };
