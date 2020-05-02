@@ -6,6 +6,10 @@ export interface ILocationStamp {
   longitude: number;
 }
 
+export interface IDistanceStamp {
+  distance: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +19,7 @@ export class LocationService {
   }
 
   /**
-   * fetch geolocation data
+   * fetch geolocation data from browser
    */
   static getLocation(): Observable<ILocationStamp> {
     return new Observable((observer) => {
@@ -35,5 +39,26 @@ export class LocationService {
         });
       }
     });
+  }
+
+  /**
+   * calculates non-denominational distance between two points on a map
+   * @param location1
+   * @param location2
+   */
+  static calculateDistanceFromLocation({location1, location2}: { location1: ILocationStamp, location2: ILocationStamp }): IDistanceStamp {
+    return {
+      distance: Math.sqrt(Math.pow((location1.latitude - location1.longitude), 2) + Math.pow((location2.latitude - location2.longitude), 2))
+    };
+  }
+
+  /**
+   * calculate if we are within a distance value
+   * @param location1
+   * @param location2
+   * @param distanceValue
+   */
+  static testRadiusPerimeterEntered({location1, location2, distanceValue}: { location1: ILocationStamp, location2: ILocationStamp, distanceValue: number }): boolean {
+    return distanceValue <= this.calculateDistanceFromLocation({location1, location2}).distance;
   }
 }
