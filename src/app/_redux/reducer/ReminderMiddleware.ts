@@ -93,11 +93,11 @@ export class ReminderMiddleware {
 
   reminderRemoveActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
-      setTimeout(() => {
-        store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null));
-      })
+      next(action);
+      store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null));
+    }else{
+      next(action);
     }
-    next(action);
   };
 
   reminderRemoveActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
