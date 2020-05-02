@@ -1,4 +1,4 @@
-export interface IReminderError {
+export interface ILocationPingItem {
   description: string;
   meta: any
 }

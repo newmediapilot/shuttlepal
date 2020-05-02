@@ -1,9 +1,8 @@
 import {IReminderReducerAction, ReminderActionType, ReminderAction} from './ReminderAction';
 import {Injectable} from '@angular/core';
 import {IReminderItem} from '../interface/IReminderItem';
-import {IReminderError, ReminderError} from '../interface/IReminderError';
 import {ILocationStamp, LocationService} from '../../services/location.service';
-import {StorageServiceSaveKey, StorageService} from '../../services/storage.service';
+import {StorageServiceSaveKey} from '../../services/storage.service';
 import {IAppState} from '../_core/RootState';
 import {StorageAction} from './StorageAction';
 import {IStoragePayload} from '../interface/IStoragePayload';
@@ -29,17 +28,15 @@ export class ReminderMiddleware {
          * error: empty
          */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorEmpty({
-          description: ReminderError.ReminderItemErrorEmpty,
-          meta: null
-        } as IReminderError))
+          description: 'Empty!'
+        }))
       } else if (!!getState.reminder.reminders.find((item) => item.description === action.payload.description)) {
         /**
          * error: duplicate
          */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorDuplicate({
-          description: ReminderError.ReminderItemErrorDuplicate,
-          meta: null
-        } as IReminderError))
+          description: 'Duplicate!'
+        }))
       } else {
         /**
          * success
@@ -95,7 +92,7 @@ export class ReminderMiddleware {
     if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
       next(action);
       store.dispatch(this.reminderReducerAction.reminderRemoveActionSuccess(null));
-    }else{
+    } else {
       next(action);
     }
   };
