@@ -1,4 +1,11 @@
 <table>
+  <thead>
+  <tr>
+    <td>descr</td>
+    <td>millis</td>
+    <td>action</td>
+  </tr>
+  </thead>
   <tbody>
   <tr *ngFor="let reminder of reminders$ | async; index as $index;">
     <td>{{reminder.description}}</td>
