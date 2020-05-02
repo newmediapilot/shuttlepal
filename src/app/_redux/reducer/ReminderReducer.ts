@@ -6,12 +6,16 @@ import {StorageAction, StorageActionType} from './StorageAction';
 
 export interface IReminderState {
   reminders: Array<IReminderItem>;
+  completed: Array<IReminderItem>;
+  deleted: Array<IReminderItem>;
   errors: Array<IReminderError>;
 }
 
 export const initialReminderState: IReminderState = {
   reminders: [],
-  errors: []
+  completed: [],
+  deleted: [],
+  errors: [],
 };
 
 export const ReminderReducer = (
@@ -20,13 +24,11 @@ export const ReminderReducer = (
 ): IReminderState => {
   switch (action.type) {
     /**
-     * storage
+     * from storage
      */
     case StorageActionType.StorageGetSuccess: {
-      return {
-        ...state,
-        reminders: (action.payload) || []
-      };
+      state = action.payload || initialReminderState;
+      return state;
     }
     /**
      * add item
@@ -65,7 +67,8 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderRemoveActionRequest: {
       return {
         ...state,
-        reminders: loDash.reject(state.reminders, action.payload)
+        reminders: loDash.reject(state.reminders, action.payload),
+        deleted: [...state.deleted, action.payload],
       };
     }
     case ReminderActionType.ReminderRemoveActionSuccess: {

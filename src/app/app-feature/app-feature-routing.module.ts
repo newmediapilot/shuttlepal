@@ -4,12 +4,14 @@ import {Routes, RouterModule} from '@angular/router';
 import {AppFeatureComponent} from './app-feature.component';
 import {ReminderItemCreateComponent} from './reminder-item-create/reminder-item-create.component';
 import {ReminderItemListComponent} from './reminder-item-list/reminder-item-list.component';
+import {ReminderItemListProximityComponent} from './reminder-item-list-proximity/reminder-item-list-proximity.component';
 
 const routes: Routes = [
   {
     path: '', component: AppFeatureComponent, children: [
       {path: 'create', component: ReminderItemCreateComponent},
       {path: 'list', component: ReminderItemListComponent},
+      {path: 'proximity', component: ReminderItemListProximityComponent},
       {path: '**', redirectTo: 'list', pathMatch: 'full'},
     ]
   },

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
 
 export enum StorageServiceSaveKey {
-  ReminderItems = 'ReminderItems',
+  ReminderItems = '[ShuttlePal]ReminderReducerStore',
 }
 
 @Injectable({

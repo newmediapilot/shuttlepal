@@ -45,7 +45,9 @@ export class ReminderMiddleware {
           description: action.payload.description,
           latitude: 0,
           longitude: 0,
-          timestamp: new Date().getTime()
+          timestamp: new Date().getTime(),
+          completed: false,
+          deleted: false,
         } as IReminderItem))
       }
     }
@@ -81,7 +83,7 @@ export class ReminderMiddleware {
       var getState: IAppState = store.getState();
       store.dispatch(this.storageAction.storageSaveRequest({
         key: StorageServiceSaveKey.ReminderItems,
-        data: getState.reminder.reminders
+        data: getState.reminder
       } as IStoragePayload));
     }
     next(action);
@@ -101,7 +103,7 @@ export class ReminderMiddleware {
       var getState: IAppState = store.getState();
       store.dispatch(this.storageAction.storageSaveRequest({
         key: StorageServiceSaveKey.ReminderItems,
-        data: getState.reminder.reminders
+        data: getState.reminder
       } as IStoragePayload));
     }
     next(action);
