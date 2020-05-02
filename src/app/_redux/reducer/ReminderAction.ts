@@ -15,6 +15,8 @@ export enum ReminderActionType {
   ReminderAddActionAddLocSuccess = '[ReminderAction] ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = '[ReminderAction] ReminderRemoveActionRequest',
   ReminderRemoveActionSuccess = '[ReminderAction] ReminderRemoveActionSuccess',
+  ReminderCompleteActionRequest = '[ReminderAction] ReminderCompleteActionRequest',
+  ReminderCompleteActionSuccess = '[ReminderAction] ReminderCompleteActionSuccess',
 }
 
 @Injectable({providedIn: 'root'})
@@ -98,7 +100,7 @@ export class ReminderAction {
   }
 
   /**
-   * triggered to request a removal of an item
+   * triggered to remove action into removed list
    * @param payload
    */
   reminderRemoveActionRequest(payload: any): IReminderReducerAction {
@@ -109,12 +111,34 @@ export class ReminderAction {
   }
 
   /**
-   * triggered once item is removed successfully
+   * triggered to remove action into removed successfully
    * @param payload
    */
   reminderRemoveActionSuccess(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderRemoveActionSuccess,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered to remove action into complete list
+   * @param payload
+   */
+  reminderCompleteActionRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderCompleteActionRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered once item is completed successfully
+   * @param payload
+   */
+  reminderCompleteActionSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderCompleteActionSuccess,
       payload: payload
     }
   }

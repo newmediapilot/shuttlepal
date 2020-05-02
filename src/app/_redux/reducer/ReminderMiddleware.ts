@@ -109,6 +109,26 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderCompleteActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
+      next(action);
+      store.dispatch(this.reminderReducerAction.reminderCompleteActionSuccess(null));
+    } else {
+      next(action);
+    }
+  };
+
+  reminderCompleteActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderRemoveActionSuccess) {
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder
+      } as IStoragePayload));
+    }
+    next(action);
+  };
+
   middleware(): Array<Function> {
     console.log('ReminderMiddleware', this);
     return [
@@ -116,8 +136,10 @@ export class ReminderMiddleware {
       this.reminderAddActionAddLocSuccess,
       this.reminderAddActionRequest,
       this.reminderAddActionSuccess,
+      this.reminderCompleteActionRequest,
+      this.reminderCompleteActionSuccess,
       this.reminderRemoveActionRequest,
-      this.reminderRemoveActionSuccess
+      this.reminderRemoveActionSuccess,
     ]
   }
 

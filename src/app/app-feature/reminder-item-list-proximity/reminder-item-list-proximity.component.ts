@@ -27,22 +27,22 @@ export class ReminderItemListProximityComponent implements OnInit {
   /**
    * show confirmation
    */
-  reminderRemoveActionRequest($event, $index) {
+  reminderCompleteActionRequest($event, $index) {
     this.confirmIndex = $index;
   }
 
   /**
    * approve deletion
    */
-  reminderRemoveActionRequestConfirm($event, reminder) {
-    this.redux.dispatch(this.reminderReducerAction.reminderRemoveActionRequest(reminder));
-    this.reminderRemoveActionRequestCancel();
+  reminderCompleteActionRequestConfirm($event, reminder) {
+    this.redux.dispatch(this.reminderReducerAction.reminderCompleteActionRequest(reminder));
+    this.reminderCompleteActionRequestCancel();
   }
 
   /**
    * reject deletion; hide confirmation
    */
-  reminderRemoveActionRequestCancel() {
+  reminderCompleteActionRequestCancel() {
     this.confirmIndex = -1;
   }
 }

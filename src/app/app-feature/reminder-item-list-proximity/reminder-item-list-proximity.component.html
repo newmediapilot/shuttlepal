@@ -15,11 +15,11 @@
     -->
     <td>{{reminder.timestamp}}</td>
     <td *ngIf="confirmIndex!==$index">
-      <button (click)="reminderRemoveActionRequest($event ,$index)">delete</button>
+      <button (click)="reminderCompleteActionRequest($event ,$index)">complete</button>
     </td>
     <td *ngIf="confirmIndex===$index">Are you sure?
-      <button (click)="reminderRemoveActionRequestConfirm($event, reminder)">confirm</button>
-      <button (click)="reminderRemoveActionRequestCancel()">cancel</button>
+      <button (click)="reminderCompleteActionRequestConfirm($event, reminder)">confirm</button>
+      <button (click)="reminderCompleteActionRequestCancel()">cancel</button>
     </td>
   </tr>
   </tbody>
