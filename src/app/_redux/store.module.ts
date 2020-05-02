@@ -37,9 +37,6 @@ export class StoreModule {
       this.rootMiddleware.middleware(),
       enhancers);
 
-    const epicMiddleware = createEpicMiddleware();
-    epicMiddleware.run(combineEpics(storageEpic.storageSaveRequest));
-
     ngReduxRouter.initialize();
 
   }
