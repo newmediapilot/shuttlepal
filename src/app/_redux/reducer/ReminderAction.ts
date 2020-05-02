@@ -15,7 +15,6 @@ export enum ReminderActionType {
   ReminderAddActionAddLocSuccess = 'ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = 'ReminderRemoveActionRequest',
   ReminderRemoveActionSuccess = 'ReminderRemoveActionSuccess',
-  ReminderItemErrorDuplicate = 'ReminderItemErrorDuplicate'
 }
 
 @Injectable({providedIn: 'root'})

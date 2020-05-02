@@ -1,4 +1,5 @@
 export interface ILocationPingItem {
-  description: string;
-  meta: any
+  latitude: number;
+  longitude: number;
+  timestamp: number
 }

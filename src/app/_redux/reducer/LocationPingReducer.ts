@@ -1,7 +1,5 @@
 import {ILocationPingItem} from '../interface/ILocationPingItem';
-import * as loDash from "lodash";
-import {StorageAction, StorageActionType} from './StorageAction';
-import {ILocationPingReducerAction, LocationPingActionType} from './ILocationPingReducerAction';
+import {ILocationPingReducerAction, LocationPingReducerActionType} from './LocationPingAction';
 
 export interface ILocationPingState {
   locations: Array<ILocationPingItem>;
@@ -18,14 +16,21 @@ export const LocationPingReducer = (
   action: ILocationPingReducerAction
 ): ILocationPingState => {
   switch (action.type) {
-    /**
-     * storage
-     */
-    case LocationPingActionType.LocationPingCurrentLocation: {
+    case LocationPingReducerActionType.StartLocationPing: {
+      return state;
+    }
+    case LocationPingReducerActionType.LocationPingCurrentLocation: {
+      return state;
+    }
+    case LocationPingReducerActionType.LocationPingCurrentLocationSuccess: {
+      console.log('action.payload', action);
       return {
         lastLocation: action.payload,
         locations: [...state.locations, action.payload]
       };
+    }
+    case LocationPingReducerActionType.LocationPingCurrentLocationError: {
+      return state;
     }
   }
   return state;

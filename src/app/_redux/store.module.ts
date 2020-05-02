@@ -7,6 +7,7 @@ import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
 import {RootMiddleware} from './_core/RootMiddleware';
+import {LocationPingAction, LocationPingReducerActionType} from './reducer/LocationPingAction';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
@@ -17,12 +18,12 @@ export class StoreModule {
     private store: NgRedux<IAppState>,
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
-    private rootMiddleware: RootMiddleware
+    private rootMiddleware: RootMiddleware,
+    private locationPingAction: LocationPingAction
   ) {
 
     let enhancers = [];
 
-    // only want to expose this tool in devMode.
     if (!environment.production && devTools.isEnabled()) {
       enhancers = [
         devTools.enhancer()
@@ -37,5 +38,6 @@ export class StoreModule {
 
     ngReduxRouter.initialize();
 
+    store.dispatch(locationPingAction.startLocationPing(null));
   }
 }

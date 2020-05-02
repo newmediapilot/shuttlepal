@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IReminderItem} from '../_redux/interface/IReminderItem';
-import {IReminderError} from '../_redux/interface/IReminderError';
 
 export interface ILocationStamp {
   latitude: number;

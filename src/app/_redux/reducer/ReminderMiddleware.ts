@@ -62,7 +62,6 @@ export class ReminderMiddleware {
 
   reminderAddActionAddLocRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
-      var getState: IAppState = store.getState();
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
           action.payload.latitude = position.latitude;
