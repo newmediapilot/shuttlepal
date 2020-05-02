@@ -38,6 +38,6 @@ export class StoreModule {
 
     ngReduxRouter.initialize();
 
-    store.dispatch(locationPingAction.startLocationPing(null));
+    // store.dispatch(locationPingAction.startLocationPing(null));
   }
 }

@@ -7,10 +7,10 @@ export interface ILocationPingReducerAction extends Action {
 }
 
 export enum LocationPingReducerActionType {
-  LocationPingCurrentLocation = 'LocationPingCurrentLocation',
-  LocationPingCurrentLocationSuccess = 'LocationPingCurrentLocationSuccess',
-  LocationPingCurrentLocationError = 'LocationPingCurrentLocationError',
-  StartLocationPing = 'StartLocationPing'
+  LocationPingCurrentLocation = '[LocationPingAction]LocationPingCurrentLocation',
+  LocationPingCurrentLocationSuccess = '[LocationPingAction]LocationPingCurrentLocationSuccess',
+  LocationPingCurrentLocationError = '[LocationPingAction]LocationPingCurrentLocationError',
+  StartLocationPing = '[LocationPingAction]StartLocationPing'
 }
 
 @Injectable({providedIn: 'root'})

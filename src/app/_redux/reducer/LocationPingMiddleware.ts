@@ -41,7 +41,7 @@ export class LocationPingMiddleware {
 
   locationPingCurrentLocationSuccess = (store) => (next) => (action: ILocationPingReducerAction) => {
     if (action.type === LocationPingReducerActionType.LocationPingCurrentLocationSuccess) {
-      // noop
+      // TODO: dispatch an action that will dupe the store sorted by distance
     }
     next(action);
   };

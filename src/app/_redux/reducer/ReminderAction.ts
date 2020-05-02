@@ -7,14 +7,14 @@ export interface IReminderReducerAction extends Action {
 }
 
 export enum ReminderActionType {
-  ReminderAddActionRequest = 'ReminderAddActionRequest',
-  ReminderAddActionSuccess = 'ReminderAddActionSuccess',
-  ReminderAddActionErrorDuplicate = 'ReminderAddActionErrorDuplicate',
-  ReminderAddActionErrorEmpty = 'ReminderAddActionErrorEmpty',
-  ReminderAddActionAddLocRequest = 'ReminderAddActionAddLocRequest',
-  ReminderAddActionAddLocSuccess = 'ReminderAddActionAddLocSuccess',
-  ReminderRemoveActionRequest = 'ReminderRemoveActionRequest',
-  ReminderRemoveActionSuccess = 'ReminderRemoveActionSuccess',
+  ReminderAddActionRequest = '[ReminderAction] ReminderAddActionRequest',
+  ReminderAddActionSuccess = '[ReminderAction] ReminderAddActionSuccess',
+  ReminderAddActionErrorDuplicate = '[ReminderAction] ReminderAddActionErrorDuplicate',
+  ReminderAddActionErrorEmpty = '[ReminderAction] ReminderAddActionErrorEmpty',
+  ReminderAddActionAddLocRequest = '[ReminderAction] ReminderAddActionAddLocRequest',
+  ReminderAddActionAddLocSuccess = '[ReminderAction] ReminderAddActionAddLocSuccess',
+  ReminderRemoveActionRequest = '[ReminderAction] ReminderRemoveActionRequest',
+  ReminderRemoveActionSuccess = '[ReminderAction] ReminderRemoveActionSuccess',
 }
 
 @Injectable({providedIn: 'root'})

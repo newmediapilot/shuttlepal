@@ -23,7 +23,6 @@ export const LocationPingReducer = (
       return state;
     }
     case LocationPingReducerActionType.LocationPingCurrentLocationSuccess: {
-      console.log('action.payload', action);
       return {
         lastLocation: action.payload,
         locations: [...state.locations, action.payload]
