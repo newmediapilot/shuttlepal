@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
-import {StorageEpic} from './reducer/StorageEpic';
 import {RootMiddleware} from './_core/RootMiddleware';
 
 @NgModule({
@@ -18,8 +17,7 @@ export class StoreModule {
     private store: NgRedux<IAppState>,
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
-    private rootMiddleware: RootMiddleware,
-    private storageEpic: StorageEpic
+    private rootMiddleware: RootMiddleware
   ) {
 
     let enhancers = [];
