@@ -15,6 +15,8 @@ export enum ReminderActionType {
   ReminderAddActionAddLocSuccess = '[ReminderAction] ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = '[ReminderAction] ReminderRemoveActionRequest',
   ReminderRemoveActionSuccess = '[ReminderAction] ReminderRemoveActionSuccess',
+  ReminderUnRemoveActionRequest = '[ReminderAction] ReminderUnRemoveActionRequest',
+  ReminderUnRemoveActionSuccess = '[ReminderAction] ReminderUnRemoveActionSuccess',
   ReminderCompleteActionRequest = '[ReminderAction] ReminderCompleteActionRequest',
   ReminderCompleteActionSuccess = '[ReminderAction] ReminderCompleteActionSuccess',
   ReminderUnCompleteActionRequest = '[ReminderAction] ReminderUnCompleteActionRequest',
@@ -119,6 +121,28 @@ export class ReminderAction {
   reminderRemoveActionSuccess(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderRemoveActionSuccess,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered when move action back to reminders fails
+   * @param payload
+   */
+  reminderUnRemoveActionRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderUnRemoveActionRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered when move action back to reminders succeeds
+   * @param payload
+   */
+  reminderUnRemoveActionSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderUnRemoveActionSuccess,
       payload: payload
     }
   }

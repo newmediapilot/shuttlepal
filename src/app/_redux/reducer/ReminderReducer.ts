@@ -75,6 +75,19 @@ export const ReminderReducer = (
       return state;
     }
     /**
+     * un-complete item
+     */
+    case ReminderActionType.ReminderUnCompleteActionRequest: {
+      return {
+        ...state,
+        completed: loDash.reject(state.reminders, action.payload),
+        reminders: [...state.completed, action.payload],
+      };
+    }
+    case ReminderActionType.ReminderUnCompleteActionSuccess: {
+      return state;
+    }
+    /**
      * remove item
      */
     case ReminderActionType.ReminderRemoveActionRequest: {
@@ -85,6 +98,19 @@ export const ReminderReducer = (
       };
     }
     case ReminderActionType.ReminderRemoveActionSuccess: {
+      return state;
+    }
+    /**
+     * un-remove item
+     */
+    case ReminderActionType.ReminderUnRemoveActionRequest: {
+      return {
+        ...state,
+        reminders: loDash.reject(state.reminders, action.payload),
+        deleted: [...state.deleted, action.payload],
+      };
+    }
+    case ReminderActionType.ReminderUnRemoveActionSuccess: {
       return state;
     }
   }
