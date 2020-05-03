@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {IReminderItem} from '../../_redux/interface/IReminderItem';
@@ -15,7 +15,7 @@ export class ReminderItemListDeletedComponent implements OnInit {
   @select(['reminder', 'deleted'])
   readonly reminders$: Observable<Array<IReminderItem>>;
 
-  public confirmIndex: number = -1;
+  public confirmIndex1: number = -1;
 
   constructor(private redux: NgRedux<IAppState>,
               private reminderReducerAction: ReminderAction,) {
@@ -25,24 +25,29 @@ export class ReminderItemListDeletedComponent implements OnInit {
   }
 
   /**
-   * show confirmation
+   * restore item
    */
-  reminderUnRemoveActionRequest($event, $index) {
-    this.confirmIndex = $index;
+  reminderUnRemoveActionRequest($event, reminder) {
+    this.redux.dispatch(this.reminderReducerAction.reminderUnRemoveActionRequest(reminder));
   }
 
   /**
-   * approve deletion
+   * delete forever
    */
-  reminderUnRemoveActionRequestConfirm($event, reminder) {
-    this.redux.dispatch(this.reminderReducerAction.reminderUnRemoveActionRequest(reminder));
-    this.reminderUnRemoveActionRequestCancel();
+  reminderEradicateActionRequest($event, $index) {
+    this.confirmIndex1 = $index;
+  }
+
+  reminderEradicateActionRequestConfirm($event, reminder) {
+    this.redux.dispatch(this.reminderReducerAction.reminderEradicateActionRequest(reminder));
+    this.reminderEradicateActionRequestCancel();
   }
 
   /**
    * reject deletion; hide confirmation
    */
-  reminderUnRemoveActionRequestCancel() {
-    this.confirmIndex = -1;
+  reminderEradicateActionRequestCancel() {
+    this.confirmIndex1 = -1;
   }
+
 }

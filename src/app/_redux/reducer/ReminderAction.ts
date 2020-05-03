@@ -17,6 +17,8 @@ export enum ReminderActionType {
   ReminderRemoveActionSuccess = '[ReminderAction] ReminderRemoveActionSuccess',
   ReminderUnRemoveActionRequest = '[ReminderAction] ReminderUnRemoveActionRequest',
   ReminderUnRemoveActionSuccess = '[ReminderAction] ReminderUnRemoveActionSuccess',
+  ReminderEradicateActionRequest = '[ReminderAction] ReminderEradicateActionRequest',
+  ReminderEradicateActionSuccess = '[ReminderAction] ReminderEradicateActionSuccess',
   ReminderCompleteActionRequest = '[ReminderAction] ReminderCompleteActionRequest',
   ReminderCompleteActionSuccess = '[ReminderAction] ReminderCompleteActionSuccess',
   ReminderUnCompleteActionRequest = '[ReminderAction] ReminderUnCompleteActionRequest',
@@ -143,6 +145,28 @@ export class ReminderAction {
   reminderUnRemoveActionSuccess(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderUnRemoveActionSuccess,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered when permanent deletion is requested
+   * @param payload
+   */
+  reminderEradicateActionRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderEradicateActionRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered when permanent deletion is successful
+   * @param payload
+   */
+  reminderEradicateActionSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderEradicateActionSuccess,
       payload: payload
     }
   }

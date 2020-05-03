@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {GeoPosition} from 'geo-position.ts';
 
 export interface ILocationStamp {
   latitude: number;
@@ -47,10 +48,13 @@ export class LocationService {
    * @param location2
    */
   static calculateDistanceFromLocation({location1, location2}: { location1: ILocationStamp, location2: ILocationStamp }): IDistanceStamp {
-    var distance: number = Math.sqrt(Math.pow((location1.latitude - location2.latitude), 2) + Math.pow((location1.longitude - location2.longitude), 2));
+
+    let xPoint = new GeoPosition(location1.latitude, location1.longitude);
+    let yPoint = new GeoPosition(location1.longitude, location1.longitude);
+
     return {
-      distance: distance
-    };
+      distance: xPoint.Distance(yPoint)
+    }
   }
 
   /**

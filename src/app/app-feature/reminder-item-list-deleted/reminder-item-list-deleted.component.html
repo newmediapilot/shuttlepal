@@ -11,12 +11,13 @@
   <tr *ngFor="let reminder of reminders$ | async; index as $index;">
     <td>{{reminder.description}}</td>
     <td>{{reminder.timestamp}}</td>
-    <td *ngIf="confirmIndex!==$index">
-      <button (click)="reminderUnRemoveActionRequest($event ,$index)">restore</button>
+    <td *ngIf="confirmIndex1!==$index">
+      <button (click)="reminderUnRemoveActionRequest($event ,reminder)">restore</button>
+      <button (click)="reminderEradicateActionRequest($event ,$index)">perm delete</button>
     </td>
-    <td *ngIf="confirmIndex===$index">Are you sure?
-      <button (click)="reminderUnRemoveActionRequestConfirm($event, reminder)">confirm</button>
-      <button (click)="reminderUnRemoveActionRequestCancel()">cancel</button>
+    <td *ngIf="confirmIndex1===$index">Delete forever?
+      <button (click)="reminderEradicateActionRequestConfirm($event, reminder)">confirm</button>
+      <button (click)="reminderEradicateActionRequestCancel()">cancel</button>
     </td>
   </tr>
   </tbody>
