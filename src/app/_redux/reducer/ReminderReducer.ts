@@ -106,7 +106,7 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderUnRemoveActionRequest: {
       return {
         ...state,
-        deleted: loDash.reject(state.reminders, action.payload),
+        deleted: loDash.reject(state.deleted, action.payload),
         reminders: [...state.reminders, action.payload],
       };
     }

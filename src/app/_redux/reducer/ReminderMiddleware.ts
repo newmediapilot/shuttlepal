@@ -109,6 +109,26 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderUnRemoveActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderUnRemoveActionRequest) {
+      next(action);
+      store.dispatch(this.reminderReducerAction.reminderUnRemoveActionSuccess(null));
+    } else {
+      next(action);
+    }
+  };
+
+  reminderUnRemoveActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderUnRemoveActionSuccess) {
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder
+      } as IStoragePayload));
+    }
+    next(action);
+  };
+
   reminderCompleteActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
       next(action);
@@ -129,6 +149,26 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderUnCompleteActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderUnCompleteActionRequest) {
+      next(action);
+      store.dispatch(this.reminderReducerAction.reminderUnCompleteActionSuccess(null));
+    } else {
+      next(action);
+    }
+  };
+
+  reminderUnCompleteActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderUnCompleteActionSuccess) {
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder
+      } as IStoragePayload));
+    }
+    next(action);
+  };
+
   middleware(): Array<Function> {
     console.log('ReminderMiddleware', this);
     return [
@@ -140,6 +180,10 @@ export class ReminderMiddleware {
       this.reminderCompleteActionSuccess,
       this.reminderRemoveActionRequest,
       this.reminderRemoveActionSuccess,
+      this.reminderUnCompleteActionRequest,
+      this.reminderUnCompleteActionSuccess,
+      this.reminderUnRemoveActionRequest,
+      this.reminderUnRemoveActionSuccess,
     ]
   }
 
