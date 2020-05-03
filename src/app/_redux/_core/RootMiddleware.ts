@@ -5,6 +5,7 @@ import * as loDash from "lodash";
 import {Injectable} from '@angular/core';
 import {Middleware} from 'redux';
 import {LocationPingMiddleware} from '../reducer/LocationPingMiddleware';
+import {ProximityMiddleware} from '../reducer/ProximityMiddleware';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,18 @@ export class RootMiddleware {
   constructor(
     private reminderReducerMiddleware: ReminderMiddleware,
     private storageMiddleware: StorageMiddleware2,
-    private locationPingMiddleware:LocationPingMiddleware
+    private locationPingMiddleware: LocationPingMiddleware,
+    private proximityMiddleware: ProximityMiddleware
   ) {
   }
 
-  middleware():Array<Middleware> {
+  middleware(): Array<Middleware> {
     return loDash.flatten([
       createLogger(),
       this.reminderReducerMiddleware.middleware(),
       this.storageMiddleware.middleware(),
       this.locationPingMiddleware.middleware(),
+      this.proximityMiddleware.middleware(),
     ]) as Array<Middleware>;
   }
 }

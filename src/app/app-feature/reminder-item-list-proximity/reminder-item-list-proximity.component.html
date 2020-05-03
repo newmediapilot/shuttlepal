@@ -1,20 +1,19 @@
 <h1>nearby</h1>
+<button (click)="proximityRequestUpdate()">refresh</button>
 <table>
   <thead>
   <tr>
     <td>descr</td>
-    <td>millis</td>
+    <td>prx_dst</td>
+    <td>prx_ent</td>
     <td>action</td>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let reminder of reminders$ | async; index as $index;">
     <td>{{reminder.description}}</td>
-    <!--
-    <td>{{reminder.latitude}}</td>
-    <td>{{reminder.longitude}}</td>
-    -->
-    <td>{{reminder.timestamp}}</td>
+    <td>{{reminder.proximity_distance}}</td>
+    <td>{{reminder.proximity_entered}}</td>
     <td *ngIf="confirmIndex!==$index">
       <button (click)="reminderCompleteActionRequest($event ,$index)">complete</button>
     </td>

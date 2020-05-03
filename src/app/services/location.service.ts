@@ -47,8 +47,9 @@ export class LocationService {
    * @param location2
    */
   static calculateDistanceFromLocation({location1, location2}: { location1: ILocationStamp, location2: ILocationStamp }): IDistanceStamp {
+    var distance: number = Math.sqrt(Math.pow((location1.latitude - location2.latitude), 2) + Math.pow((location1.longitude - location2.longitude), 2));
     return {
-      distance: Math.sqrt(Math.pow((location1.latitude - location1.longitude), 2) + Math.pow((location2.latitude - location2.longitude), 2))
+      distance: distance
     };
   }
 
