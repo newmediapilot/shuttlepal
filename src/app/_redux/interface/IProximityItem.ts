@@ -1,10 +1,7 @@
-export interface IProximityItem {
-  description: string;
-  timestamp: number;
-  latitude: number;
-  longitude: number;
-  deleted: boolean;
-  completed: boolean;
-  distance: number;
-  perimeter: boolean;
+import {IReminderItem} from './IReminderItem';
+
+export interface IProximityItem extends IReminderItem{
+  proximity_distance: number;
+  proximity_timestamp: number;
+  proximity_entered: boolean;
 }

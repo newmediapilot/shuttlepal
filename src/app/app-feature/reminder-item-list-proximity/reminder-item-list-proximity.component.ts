@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {IAppState} from '../../_redux/_core/RootState';
 import {ReminderAction} from '../../_redux/reducer/ReminderAction';
 import {IReminderItem} from '../../_redux/interface/IReminderItem';
+import {ProximityAction} from '../../_redux/reducer/ProximityAction';
 
 @Component({
   selector: 'app-reminder-item-list-proximity',
@@ -18,10 +19,12 @@ export class ReminderItemListProximityComponent implements OnInit {
   public confirmIndex: number = -1;
 
   constructor(private redux: NgRedux<IAppState>,
+              private proximityAction: ProximityAction,
               private reminderReducerAction: ReminderAction,) {
   }
 
   ngOnInit() {
+    this.redux.dispatch(this.proximityAction.proximityRequestUpdate(null));
   }
 
   /**

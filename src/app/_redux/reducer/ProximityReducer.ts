@@ -15,6 +15,7 @@ export const ProximityReducer = (
 ): IProximityState => {
   switch (action.type) {
     case ProximityReducerActionType.ProximityRequestUpdate: {
+      state.reminders = [...action.payload];
       return state;
     }
     case ProximityReducerActionType.ProximityRequestUpdateSuccess: {
