@@ -12,7 +12,7 @@ import {ReminderAction} from '../../_redux/reducer/ReminderAction';
 })
 export class ReminderItemListCompletedComponent implements OnInit {
 
-  @select(['reminder', 'complete'])
+  @select(['reminder', 'completed'])
   readonly reminders$: Observable<Array<IReminderItem>>;
 
   public confirmIndex: number = -1;
