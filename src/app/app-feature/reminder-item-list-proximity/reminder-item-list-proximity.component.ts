@@ -12,7 +12,7 @@ import {IReminderItem} from '../../_redux/interface/IReminderItem';
 })
 export class ReminderItemListProximityComponent implements OnInit {
 
-  @select(['reminder', 'reminders'])
+  @select(['proximity', 'reminders'])
   readonly reminders$: Observable<Array<IReminderItem>>;
 
   public confirmIndex: number = -1;

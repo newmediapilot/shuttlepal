@@ -17,6 +17,8 @@ export enum ReminderActionType {
   ReminderRemoveActionSuccess = '[ReminderAction] ReminderRemoveActionSuccess',
   ReminderCompleteActionRequest = '[ReminderAction] ReminderCompleteActionRequest',
   ReminderCompleteActionSuccess = '[ReminderAction] ReminderCompleteActionSuccess',
+  ReminderUnCompleteActionRequest = '[ReminderAction] ReminderUnCompleteActionRequest',
+  ReminderUnCompleteActionSuccess = '[ReminderAction] ReminderUnCompleteActionSuccess',
 }
 
 @Injectable({providedIn: 'root'})
@@ -139,6 +141,28 @@ export class ReminderAction {
   reminderCompleteActionSuccess(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderCompleteActionSuccess,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered to remove action out of complete list
+   * @param payload
+   */
+  reminderUnCompleteActionRequest(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderUnCompleteActionRequest,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered once item is moved out of completed successfully
+   * @param payload
+   */
+  reminderUnCompleteActionSuccess(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderUnCompleteActionSuccess,
       payload: payload
     }
   }

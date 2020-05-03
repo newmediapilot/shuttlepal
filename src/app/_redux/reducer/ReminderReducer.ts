@@ -62,6 +62,19 @@ export const ReminderReducer = (
       return state;
     }
     /**
+     * complete item
+     */
+    case ReminderActionType.ReminderCompleteActionRequest: {
+      return {
+        ...state,
+        reminders: loDash.reject(state.reminders, action.payload),
+        completed: [...state.completed, action.payload],
+      };
+    }
+    case ReminderActionType.ReminderCompleteActionSuccess: {
+      return state;
+    }
+    /**
      * remove item
      */
     case ReminderActionType.ReminderRemoveActionRequest: {
