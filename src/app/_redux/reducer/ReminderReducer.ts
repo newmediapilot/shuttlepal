@@ -80,8 +80,8 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderUnCompleteActionRequest: {
       return {
         ...state,
-        completed: loDash.reject(state.completed, action.payload),
         reminders: [...state.reminders, action.payload],
+        completed: loDash.reject(state.completed, action.payload),
       };
     }
     case ReminderActionType.ReminderUnCompleteActionSuccess: {

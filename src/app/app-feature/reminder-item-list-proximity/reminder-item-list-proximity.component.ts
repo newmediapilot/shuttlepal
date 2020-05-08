@@ -18,8 +18,6 @@ export class ReminderItemListProximityComponent implements OnInit {
   @select(['proximity', 'reminders'])
   readonly reminders$: Observable<Array<IProximityItem>>;
 
-  public confirmIndex: number = -1;
-
   constructor(private router: Router,
               private redux: NgRedux<IAppState>,
               private proximityAction: ProximityAction,
@@ -30,32 +28,9 @@ export class ReminderItemListProximityComponent implements OnInit {
     //
   }
 
-  /**
-   * show confirmation
-   */
-  reminderCompleteActionRequest($event, $index) {
-    this.confirmIndex = $index;
-  }
-
-  /**
-   * approve deletion
-   */
-  reminderCompleteActionRequestConfirm($event, reminder) {
+  reminderCompleteActionRequest(reminder) {
     this.redux.dispatch(this.reminderReducerAction.reminderCompleteActionRequest(reminder));
-    this.reminderCompleteActionRequestCancel();
-  }
-
-  /**
-   * update proximity list
-   */
-  proximityRequestUpdate() {
     this.redux.dispatch(this.proximityAction.proximityRequestUpdate(null));
-  }
-
-  /**
-   * reject deletion; hide confirmation
-   */
-  reminderCompleteActionRequestCancel() {
-    this.confirmIndex = -1;
+    this.router.navigate(['v1', 'proxy'], {queryParams: {'ref': new Date().getTime()}});
   }
 }

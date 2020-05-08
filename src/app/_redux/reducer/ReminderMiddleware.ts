@@ -116,6 +116,26 @@ export class ReminderMiddleware {
     next(action);
   };
 
+  reminderEradicateActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderEradicateActionRequest) {
+      next(action);
+      store.dispatch(this.reminderReducerAction.reminderEradicateActionSuccess(null));
+    } else {
+      next(action);
+    }
+  };
+
+  reminderEradicateActionSuccess = (store) => (next) => (action: IReminderReducerAction) => {
+    if (action.type === ReminderActionType.ReminderEradicateActionSuccess) {
+      var getState: IAppState = store.getState();
+      store.dispatch(this.storageAction.storageSaveRequest({
+        key: StorageServiceSaveKey.ReminderItems,
+        data: getState.reminder
+      } as IStoragePayload));
+    }
+    next(action);
+  };
+
   reminderUnRemoveActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderUnRemoveActionRequest) {
       next(action);
@@ -137,7 +157,7 @@ export class ReminderMiddleware {
   };
 
   reminderCompleteActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
-    if (action.type === ReminderActionType.ReminderRemoveActionRequest) {
+    if (action.type === ReminderActionType.ReminderCompleteActionRequest) {
       next(action);
       store.dispatch(this.reminderReducerAction.reminderCompleteActionSuccess(null));
     } else {
@@ -187,6 +207,8 @@ export class ReminderMiddleware {
       this.reminderCompleteActionSuccess,
       this.reminderRemoveActionRequest,
       this.reminderRemoveActionSuccess,
+      this.reminderEradicateActionRequest,
+      this.reminderEradicateActionSuccess,
       this.reminderUnCompleteActionRequest,
       this.reminderUnCompleteActionSuccess,
       this.reminderUnRemoveActionRequest,

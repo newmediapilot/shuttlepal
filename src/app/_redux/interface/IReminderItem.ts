@@ -3,6 +3,4 @@ export interface IReminderItem {
   timestamp: number;
   latitude: number;
   longitude: number;
-  deleted: boolean;
-  completed: boolean;
 }

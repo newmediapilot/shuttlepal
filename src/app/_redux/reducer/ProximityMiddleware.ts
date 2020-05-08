@@ -16,7 +16,6 @@ export class ProximityMiddleware {
 
   proximityRequestUpdate = (store) => (next) => (action: IProximityReducerAction) => {
     if (action.type === ProximityReducerActionType.ProximityRequestUpdate) {
-      next(action);
       var getState: IAppState = store.getState();
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
@@ -24,23 +23,20 @@ export class ProximityMiddleware {
           var reminders: Array<IProximityItem> = loDash.map(getState.reminder.reminders, (reminder) => {
             return {
               ...reminder,
-              proximity_timestamp: new Date().getTime(),
-              proximity_entered: false,
-              proximity_distance: LocationService.calculateDistanceFromLocation({
+              distance: LocationService.calculateDistanceFromLocation({
                 location1: reminder,
                 location2: position
               }).distance,
             } as IProximityItem;
-          }).sort(reminder => reminder.proximity_distance);
+          }).sort(reminder => reminder.distance);
           store.dispatch(this.proximityReducerAction.proximityRequestUpdateSuccess(reminders));
         },
         (err) => {
           store.dispatch(this.proximityReducerAction.proximityRequestUpdateError(null));
         }
       )
-    } else {
-      next(action);
     }
+    next(action);
   };
 
   proximityRequestUpdateSuccess = (store) => (next) => (action: IProximityReducerAction) => {

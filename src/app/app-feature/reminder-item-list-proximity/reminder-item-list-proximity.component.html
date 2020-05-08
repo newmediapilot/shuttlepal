@@ -14,13 +14,7 @@
     <td>{{reminder.description}}</td>
     <td>{{reminder.proximity_distance}}</td>
     <td>{{reminder.proximity_entered}}</td>
-    <td *ngIf="confirmIndex!==$index">
-      <button (click)="reminderCompleteActionRequest($event ,$index)">complete</button>
-    </td>
-    <td *ngIf="confirmIndex===$index">Are you sure?
-      <button (click)="reminderCompleteActionRequestConfirm($event, reminder)">confirm</button>
-      <button (click)="reminderCompleteActionRequestCancel()">cancel</button>
-    </td>
+    <button (click)="reminderCompleteActionRequest(reminder)">complete</button>
   </tr>
   </tbody>
 </table>

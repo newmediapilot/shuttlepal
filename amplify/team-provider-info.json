@@ -11,5 +11,18 @@
             "StackId": "arn:aws:cloudformation:us-east-1:737392042775:stack/amplify-shuttlepal-spal-14958/1beb5e10-7fa6-11ea-8abd-0a279eeb3bc1",
             "AmplifyAppId": "d2lm2licm5p9w0"
         }
+    },
+    "shuttlepal": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-shuttlepal-shuttlepal-33715-authRole",
+            "UnauthRoleArn": "arn:aws:iam::737392042775:role/amplify-shuttlepal-shuttlepal-33715-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::737392042775:role/amplify-shuttlepal-shuttlepal-33715-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-shuttlepal-shuttlepal-33715-deployment",
+            "UnauthRoleName": "amplify-shuttlepal-shuttlepal-33715-unauthRole",
+            "StackName": "amplify-shuttlepal-shuttlepal-33715",
+            "StackId": "arn:aws:cloudformation:us-east-1:737392042775:stack/amplify-shuttlepal-shuttlepal-33715/be4dbcc0-90fe-11ea-ac4b-0aa554d91bcc",
+            "AmplifyAppId": "d2lm2licm5p9w0"
+        }
     }
 }
