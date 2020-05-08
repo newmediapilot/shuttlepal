@@ -13,6 +13,8 @@ import {IAppState} from '../../_redux/_core/RootState';
 export class ReminderItemCreateComponent implements OnInit {
 
   description: string;
+  latitude: string;
+  longitude: string;
   placeholder: string;
 
   @select(['reminder', 'errors'])
@@ -30,7 +32,12 @@ export class ReminderItemCreateComponent implements OnInit {
   }
 
   reminderAddActionRequest($event) {
-    this.redux.dispatch(this.reminderReducerAction.reminderAddActionRequest({description: this.description}));
+    this.redux.dispatch(this.reminderReducerAction.reminderAddActionRequest(
+      {
+        description: this.description,
+        latitude: this.latitude,
+        longitude: this.longitude
+      }));
   }
 
 }

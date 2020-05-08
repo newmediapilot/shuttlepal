@@ -48,12 +48,10 @@ export class LocationService {
    * @param location2
    */
   static calculateDistanceFromLocation({location1, location2}: { location1: ILocationStamp, location2: ILocationStamp }): IDistanceStamp {
-
-    let xPoint = new GeoPosition(location1.latitude, location1.longitude);
-    let yPoint = new GeoPosition(location1.longitude, location1.longitude);
-
+    let point1 = new GeoPosition(location1.latitude, location1.longitude);
+    let point2 = new GeoPosition(location2.latitude, location2.longitude);
     return {
-      distance: xPoint.Distance(yPoint)
+      distance: point1.Distance(point2)
     }
   }
 
