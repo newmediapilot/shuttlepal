@@ -11,6 +11,7 @@ export enum ReminderActionType {
   ReminderAddActionSuccess = '[ReminderAction] ReminderAddActionSuccess',
   ReminderAddActionErrorDuplicate = '[ReminderAction] ReminderAddActionErrorDuplicate',
   ReminderAddActionErrorEmpty = '[ReminderAction] ReminderAddActionErrorEmpty',
+  ReminderAddActionErrorInvalidCoord = '[ReminderAction] ReminderAddActionErrorInvalidCoord',
   ReminderAddActionAddLocRequest = '[ReminderAction] ReminderAddActionAddLocRequest',
   ReminderAddActionAddLocSuccess = '[ReminderAction] ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = '[ReminderAction] ReminderRemoveActionRequest',
@@ -66,6 +67,17 @@ export class ReminderAction {
    * @param payload
    */
   reminderAddActionErrorEmpty(payload: any): IReminderReducerAction {
+    return {
+      type: ReminderActionType.ReminderAddActionErrorEmpty,
+      payload: payload
+    }
+  }
+
+  /**
+   * triggered if requested payload is a blank
+   * @param payload
+   */
+  reminderAddActionInvalidCoord(payload: any): IReminderReducerAction {
     return {
       type: ReminderActionType.ReminderAddActionErrorEmpty,
       payload: payload

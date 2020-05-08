@@ -64,4 +64,12 @@ export class LocationService {
   static testRadiusPerimeterEntered({location1, location2, distanceValue}: { location1: ILocationStamp, location2: ILocationStamp, distanceValue: number }): boolean {
     return distanceValue <= this.calculateDistanceFromLocation({location1, location2}).distance;
   }
+
+  /**
+   * tests if coordinates are valid
+   * @param location
+   */
+  static testIfCoordinatesValid(location: ILocationStamp): boolean {
+    return GeoPosition.IsValidGpsCoordinate(location.latitude, location.longitude);
+  }
 }

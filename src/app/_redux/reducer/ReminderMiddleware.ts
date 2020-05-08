@@ -20,36 +20,41 @@ export class ReminderMiddleware {
   reminderAddActionRequest = (store) => (next) => (action: IReminderReducerAction) => {
     if (action.type === ReminderActionType.ReminderAddActionRequest) {
       var getState: IAppState = store.getState();
-      /**
-       * test payload contents
-       */
+
       if (!action.payload.description || action.payload.description.trim().length === 0) {
-        /**
-         * error: empty
-         */
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorEmpty({
           description: 'Empty!'
-        }))
-      } else if (!!getState.reminder.reminders.find((item) => item.description === action.payload.description)) {
-        /**
-         * error: duplicate
-         */
+        }));
+        next(action);
+        return;
+      }
+
+      if (!!getState.reminder.reminders.find((item) => item.description === action.payload.description)) {
         store.dispatch(this.reminderReducerAction.reminderAddActionErrorDuplicate({
           description: 'Duplicate!'
-        }))
-      } else {
-        /**
-         * success
-         */
-        store.dispatch(this.reminderReducerAction.reminderAddActionSuccess({
-          description: action.payload.description,
-          latitude: 0,
-          longitude: 0,
-          timestamp: new Date().getTime(),
-          completed: false,
-          deleted: false,
-        } as IReminderItem))
+        }));
+        next(action);
+        return;
       }
+
+      if (!!action.payload.latitude || !!action.payload.longitude) {
+        if (false === LocationService.testIfCoordinatesValid(action.payload)) {
+          store.dispatch(this.reminderReducerAction.reminderAddActionInvalidCoord({
+            description: 'Location!'
+          }));
+          next(action);
+          return;
+        }
+      }
+
+      store.dispatch(this.reminderReducerAction.reminderAddActionSuccess({
+        description: action.payload.description,
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude,
+        timestamp: new Date().getTime(),
+        completed: false,
+        deleted: false,
+      } as IReminderItem))
     }
     next(action);
   };
@@ -66,8 +71,10 @@ export class ReminderMiddleware {
     if (action.type === ReminderActionType.ReminderAddActionAddLocRequest) {
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
-          action.payload.latitude = position.latitude;
-          action.payload.longitude = position.longitude;
+          if (!action.payload.latitude && !action.payload.latitude) {
+            action.payload.latitude = position.latitude;
+            action.payload.longitude = position.longitude;
+          }
           store.dispatch(this.reminderReducerAction.reminderAddActionAddLocSuccess(action.payload as IReminderItem));
         },
         (err) => {

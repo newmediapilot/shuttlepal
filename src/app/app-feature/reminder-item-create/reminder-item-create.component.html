@@ -6,8 +6,8 @@
   rows="5">
 </textarea>
 <br>
-<input placeholder="latitude" type="text">
-<input placeholder="longitude" type="text">
+<input placeholder="latitude" [(ngModel)]="latitude" type="text">
+<input placeholder="longitude" [(ngModel)]="longitude" type="text">
 <button (click)="reminderAddActionRequest($event)">create</button>
 <div *ngFor="let error of errors$ | async">
   {{error | json}}

@@ -4,6 +4,8 @@ import {ReminderAction} from '../../_redux/reducer/ReminderAction';
 import {Observable} from 'rxjs';
 import {IReminderError} from '../../_redux/interface/IReminderError';
 import {IAppState} from '../../_redux/_core/RootState';
+import {Route, Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-reminder-item-create',
@@ -21,9 +23,11 @@ export class ReminderItemCreateComponent implements OnInit {
   readonly errors$: Observable<Array<IReminderError>>;
 
   constructor(
+    private router: Router,
     private redux: NgRedux<IAppState>,
     private reminderReducerAction: ReminderAction,
   ) {
+    //
   }
 
   ngOnInit() {
