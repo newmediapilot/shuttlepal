@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NgRedux, select} from '@angular-redux/store';
 import {ReminderAction} from '../../_redux/reducer/ReminderAction';
-import {Observable} from 'rxjs';
+import {observable, Observable} from 'rxjs';
 import {IReminderError} from '../../_redux/interface/IReminderError';
 import {IAppState} from '../../_redux/_core/RootState';
 import {Route, Router} from '@angular/router';
-import {map} from 'rxjs/operators';
+import {distinctUntilChanged, map, skip, startWith} from 'rxjs/operators';
+import {IReminderItem} from '../../_redux/interface/IReminderItem';
 
 @Component({
   selector: 'app-reminder-item-create',
@@ -22,6 +23,9 @@ export class ReminderItemCreateComponent implements OnInit {
   @select(['reminder', 'errors'])
   readonly errors$: Observable<Array<IReminderError>>;
 
+  @select(['reminder', 'reminders'])
+  readonly reminders$: Observable<Array<IReminderItem>>;
+
   constructor(
     private router: Router,
     private redux: NgRedux<IAppState>,
@@ -33,6 +37,17 @@ export class ReminderItemCreateComponent implements OnInit {
   ngOnInit() {
     this.description = '';
     this.placeholder = 'enter reminder text';
+    this.enableChangeSubscriptions();
+  }
+
+  enableChangeSubscriptions() {
+    this.reminders$.pipe(
+      skip(1),
+      map(reminders => reminders.length),
+      distinctUntilChanged()
+    ).subscribe(data => {
+      this.router.navigate(['v1', 'list']);
+    });
   }
 
   /**
