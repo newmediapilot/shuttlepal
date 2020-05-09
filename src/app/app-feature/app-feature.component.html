@@ -21,3 +21,8 @@
   </ul>
 </nav>
 <router-outlet></router-outlet>
+<div style="height:200px; overflow-y: scroll;overflow-x: hidden">
+  <p *ngFor="let log of logs$ | async; index as $index;">
+    {{log}}
+  </p>
+</div>
