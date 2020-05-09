@@ -10,10 +10,34 @@ export enum ProximityReducerActionType {
   ProximityRequestUpdate = '[ProximityAction] ProximityRequestUpdate',
   ProximityRequestUpdateSuccess = '[ProximityAction] ProximityRequestUpdateSuccess',
   ProximityRequestUpdateError = '[ProximityAction] ProximityRequestUpdateError',
+  ProximityActivateWatchPosition = '[ProximityAction] ProximityActivateWatchPosition',
+  ProximityDeActivateWatchPosition = '[ProximityAction] ProximityDeActivateWatchPosition',
 }
 
 @Injectable({providedIn: 'root'})
 export class ProximityAction {
+
+  /**
+   * enable location watcher
+   * @param payload
+   */
+  proximityActivateWatchPosition(payload: any): IProximityReducerAction {
+    return {
+      type: ProximityReducerActionType.ProximityActivateWatchPosition,
+      payload: payload
+    }
+  }
+
+  /**
+   * remove location watcher
+   * @param payload
+   */
+  proximityDeActivateWatchPosition(payload: any): IProximityReducerAction {
+    return {
+      type: ProximityReducerActionType.ProximityDeActivateWatchPosition,
+      payload: payload
+    }
+  }
 
   /**
    * request list based on proximity from location

@@ -14,6 +14,20 @@ export class ProximityMiddleware {
 
   }
 
+  proximityActivateWatchPosition = (store) => (next) => (action: IProximityReducerAction) => {
+    if (action.type === ProximityReducerActionType.ProximityActivateWatchPosition) {
+      LocationService.getLocation().subscribe(
+        (position: ILocationStamp) => {
+          store.dispatch(this.proximityReducerAction.proximityRequestUpdate(null));
+        },
+        (err) => {
+          store.dispatch(this.proximityReducerAction.proximityRequestUpdateError(err));
+        }
+      )
+    }
+    next(action);
+  };
+
   proximityRequestUpdate = (store) => (next) => (action: IProximityReducerAction) => {
     if (action.type === ProximityReducerActionType.ProximityRequestUpdate) {
       var getState: IAppState = store.getState();
@@ -56,6 +70,7 @@ export class ProximityMiddleware {
   middleware(): Array<Function> {
     console.log('ProximityMiddleware', this);
     return [
+      this.proximityActivateWatchPosition,
       this.proximityRequestUpdate,
       this.proximityRequestUpdateSuccess,
       this.proximityRequestUpdateError
