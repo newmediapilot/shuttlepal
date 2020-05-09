@@ -42,4 +42,12 @@ export class StorageService {
     });
   }
 
+  /**
+   * destroys the target obect (perm delete!)
+   * @param type
+   */
+  static clearLocalStorage(type: string) {
+    localStorage.setItem(type, null);
+  }
+
 }

@@ -1,20 +1,23 @@
 <nav>
   <ul>
-  <li>
-    <button routerLink="list">list</button>
-  </li>
-  <li>
-    <button routerLink="create">create</button>
-  </li>
-  <li>
-    <button routerLink="completed">completed</button>
-  </li>
-  <li>
-    <button routerLink="deleted">deleted</button>
-  </li>
-  <li>
-    <button routerLink="proximity">nearby</button>
-  </li>
-</ul>
+    <li>
+      <button (click)="clearAllData()">clear data</button>
+    </li>
+    <li>
+      <button routerLink="list">list</button>
+    </li>
+    <li>
+      <button routerLink="create">create</button>
+    </li>
+    <li>
+      <button routerLink="completed">completed</button>
+    </li>
+    <li>
+      <button routerLink="deleted">deleted</button>
+    </li>
+    <li>
+      <button routerLink="proximity">nearby</button>
+    </li>
+  </ul>
 </nav>
 <router-outlet></router-outlet>

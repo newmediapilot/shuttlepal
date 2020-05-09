@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgRedux} from '@angular-redux/store';
 import {IAppState} from '../_redux/_core/RootState';
 import {ProximityAction} from '../_redux/reducer/ProximityAction';
+import {StorageService, StorageServiceSaveKey} from '../services/storage.service';
 
 @Component({
   selector: 'app-app-feature',
@@ -20,6 +21,17 @@ export class AppFeatureComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  /**
+   * debug function only!
+   */
+  clearAllData() {
+    if (window.confirm('clear all data forever?')) {
+      StorageService.clearLocalStorage(StorageServiceSaveKey.ReminderItems);
+      window.alert('data deleted... reloading app!');
+      window.location.reload();
+    }
   }
 
 }
