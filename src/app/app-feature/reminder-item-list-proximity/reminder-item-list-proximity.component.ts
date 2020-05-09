@@ -21,7 +21,7 @@ export class ReminderItemListProximityComponent implements OnInit {
   constructor(private router: Router,
               private redux: NgRedux<IAppState>,
               private proximityAction: ProximityAction,
-              private reminderReducerAction: ReminderAction,) {
+              private reminderAction: ReminderAction,) {
   }
 
   ngOnInit() {
@@ -29,8 +29,7 @@ export class ReminderItemListProximityComponent implements OnInit {
   }
 
   reminderCompleteActionRequest(reminder) {
-    this.redux.dispatch(this.reminderReducerAction.reminderCompleteActionRequest(reminder));
-    this.redux.dispatch(this.proximityAction.proximityRequestUpdate(null));
-    this.router.navigate(['v1', 'proxy'], {queryParams: {'ref': new Date().getTime()}});
+    this.redux.dispatch(this.reminderAction.reminderCompleteActionRequest(reminder));
+    this.redux.dispatch(this.proximityAction.proximityRemoveActionRequest(reminder));
   }
 }

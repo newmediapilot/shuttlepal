@@ -1,5 +1,6 @@
 import {IProximityReducerAction, ProximityReducerActionType} from './ProximityAction';
 import {IReminderItem} from '../interface/IReminderItem';
+import * as loDash from 'lodash';
 
 export interface IProximityState {
   reminders: Array<IReminderItem>;
@@ -23,6 +24,12 @@ export const ProximityReducer = (
     }
     case ProximityReducerActionType.ProximityRequestUpdateError: {
       return state;
+    }
+    case ProximityReducerActionType.ProximityRemoveActionRequest: {
+      return {
+        ...state,
+        reminders: loDash.reject(state.reminders, action.payload)
+      };
     }
   }
   return state;

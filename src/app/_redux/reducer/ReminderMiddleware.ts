@@ -6,6 +6,7 @@ import {StorageServiceSaveKey} from '../../services/storage.service';
 import {IAppState} from '../_core/RootState';
 import {StorageAction} from './StorageAction';
 import {IStoragePayload} from '../interface/IStoragePayload';
+import {RandomService} from '../../services/random.service';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,7 @@ export class ReminderMiddleware {
       }
 
       store.dispatch(this.reminderReducerAction.reminderAddActionSuccess({
+        id: RandomService.generateRandomIdentifier(),
         description: action.payload.description,
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,

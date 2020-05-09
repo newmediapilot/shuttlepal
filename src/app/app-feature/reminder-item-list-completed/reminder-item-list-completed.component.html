@@ -15,12 +15,8 @@
     <td>{{reminder.longitude}}</td>
     -->
     <td>{{reminder.timestamp}}</td>
-    <td *ngIf="confirmIndex!==$index">
-      <button (click)="reminderUnCompleteActionRequest($event ,$index)">mark incomplete</button>
-    </td>
-    <td *ngIf="confirmIndex===$index">Are you sure?
-      <button (click)="reminderUnCompleteActionRequestConfirm($event, reminder)">confirm</button>
-      <button (click)="reminderUnCompleteActionRequestCancel()">cancel</button>
+    <td>
+      <button (click)="reminderUnCompleteActionRequest(reminder)">mark incomplete</button>
     </td>
   </tr>
   </tbody>

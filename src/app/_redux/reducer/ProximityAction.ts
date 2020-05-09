@@ -12,6 +12,7 @@ export enum ProximityReducerActionType {
   ProximityRequestUpdateError = '[ProximityAction] ProximityRequestUpdateError',
   ProximityActivateWatchPosition = '[ProximityAction] ProximityActivateWatchPosition',
   ProximityDeActivateWatchPosition = '[ProximityAction] ProximityDeActivateWatchPosition',
+  ProximityRemoveActionRequest = '[ProximityAction] ProximityRemoveActionRequest',
 }
 
 @Injectable({providedIn: 'root'})
@@ -68,6 +69,13 @@ export class ProximityAction {
   proximityRequestUpdateError(payload: any): IProximityReducerAction {
     return {
       type: ProximityReducerActionType.ProximityRequestUpdateError,
+      payload: payload
+    }
+  }
+
+  proximityRemoveActionRequest(payload: any): IProximityReducerAction {
+    return {
+      type: ProximityReducerActionType.ProximityRemoveActionRequest,
       payload: payload
     }
   }

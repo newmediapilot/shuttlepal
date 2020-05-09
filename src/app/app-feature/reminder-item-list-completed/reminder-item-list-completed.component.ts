@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {IReminderItem} from '../../_redux/interface/IReminderItem';
@@ -27,16 +27,8 @@ export class ReminderItemListCompletedComponent implements OnInit {
   /**
    * show confirmation
    */
-  reminderUnCompleteActionRequest($event, $index) {
-    this.confirmIndex = $index;
-  }
-
-  /**
-   * approve deletion
-   */
-  reminderUnCompleteActionRequestConfirm($event, reminder) {
+  reminderUnCompleteActionRequest(reminder) {
     this.redux.dispatch(this.reminderReducerAction.reminderUnCompleteActionRequest(reminder));
-    this.reminderUnCompleteActionRequestCancel();
   }
 
   /**

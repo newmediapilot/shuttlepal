@@ -40,6 +40,14 @@ export class ReminderItemListComponent implements OnInit {
   }
 
   /**
+   * mark complete
+   */
+  reminderCompleteActionRequest($event, reminder) {
+    this.redux.dispatch(this.reminderReducerAction.reminderCompleteActionRequest(reminder));
+    this.reminderRemoveActionRequestCancel();
+  }
+
+  /**
    * reject deletion; hide confirmation
    */
   reminderRemoveActionRequestCancel() {

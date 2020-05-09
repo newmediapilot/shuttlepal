@@ -101,18 +101,6 @@ export const ReminderReducer = (
       return state;
     }
     /**
-     * eradicate item
-     */
-    case ReminderActionType.ReminderEradicateActionRequest: {
-      return {
-        ...state,
-        deleted: loDash.reject(state.deleted, action.payload)
-      };
-    }
-    case ReminderActionType.ReminderEradicateActionSuccess: {
-      return state;
-    }
-    /**
      * un-remove item
      */
     case ReminderActionType.ReminderUnRemoveActionRequest: {
@@ -123,6 +111,18 @@ export const ReminderReducer = (
       };
     }
     case ReminderActionType.ReminderUnRemoveActionSuccess: {
+      return state;
+    }
+    /**
+     * eradicate item (perma delete)
+     */
+    case ReminderActionType.ReminderEradicateActionRequest: {
+      return {
+        ...state,
+        deleted: loDash.reject(state.deleted, action.payload)
+      };
+    }
+    case ReminderActionType.ReminderEradicateActionSuccess: {
       return state;
     }
   }
