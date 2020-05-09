@@ -5,6 +5,7 @@ import {IProximityItem} from '../interface/IProximityItem';
 import {IAppState} from '../_core/RootState';
 import {IReminderItem} from '../interface/IReminderItem';
 import * as loDash from "lodash";
+import {DEFAULT_PERIMETER_SIZE} from '../../globals/location';
 
 @Injectable({
   providedIn: 'root'
@@ -34,13 +35,24 @@ export class ProximityMiddleware {
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
           var index = 0;
-          var reminders: Array<IProximityItem> = loDash.map(getState.reminder.reminders, (reminder) => {
+          var reminders: Array<IProximityItem> = loDash.map(getState.reminder.reminders, (reminder: IProximityItem) => {
+            /**
+             * measure the distance from this reminder
+             */
+            const distance = LocationService.calculateDistanceFromLocation({
+              location1: reminder,
+              location2: position
+            }).distance;
+            /**
+             * setup perimeter or default to global
+             */
+            const perimeter = reminder.perimeter || DEFAULT_PERIMETER_SIZE;
+
             return {
               ...reminder,
-              distance: LocationService.calculateDistanceFromLocation({
-                location1: reminder,
-                location2: position
-              }).distance,
+              distance: distance,
+              perimeter: perimeter,
+              entered: distance <= perimeter
             } as IProximityItem;
           }).sort(reminder => reminder.distance);
           store.dispatch(this.proximityReducerAction.proximityRequestUpdateSuccess(reminders));
