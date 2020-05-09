@@ -35,6 +35,10 @@ export class ReminderItemCreateComponent implements OnInit {
     this.placeholder = 'enter reminder text';
   }
 
+  /**
+   * submit the request to create
+   * @param $event
+   */
   reminderAddActionRequest($event) {
     this.redux.dispatch(this.reminderReducerAction.reminderAddActionRequest(
       {

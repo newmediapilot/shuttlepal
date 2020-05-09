@@ -12,12 +12,5 @@ import {StorageActionType} from './_redux/reducer/StorageAction';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private store: NgRedux<IAppState>) {
-    this.store.dispatch({
-      type: StorageActionType.StorageGetRequest,
-      payload: {
-        key: StorageServiceSaveKey.ReminderItems
-      }
-    } as IReminderReducerAction);
-  }
+  //
 }

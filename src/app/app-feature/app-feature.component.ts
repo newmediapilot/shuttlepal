@@ -3,6 +3,8 @@ import {NgRedux} from '@angular-redux/store';
 import {IAppState} from '../_redux/_core/RootState';
 import {ProximityAction} from '../_redux/reducer/ProximityAction';
 import {StorageService, StorageServiceSaveKey} from '../services/storage.service';
+import {StorageActionType} from '../_redux/reducer/StorageAction';
+import {IReminderReducerAction} from '../_redux/reducer/ReminderAction';
 
 @Component({
   selector: 'app-app-feature',
@@ -15,12 +17,17 @@ export class AppFeatureComponent implements OnInit {
     private redux: NgRedux<IAppState>,
     private proximityAction: ProximityAction
   ) {
+    this.redux.dispatch({
+      type: StorageActionType.StorageGetRequest,
+      payload: {
+        key: StorageServiceSaveKey.ReminderItems
+      }
+    } as IReminderReducerAction);
     this.redux.dispatch(this.proximityAction.proximityActivateWatchPosition(null));
-    console.log('AppFeatureComponent ready...');
   }
 
   ngOnInit() {
-
+    //
   }
 
   /**
