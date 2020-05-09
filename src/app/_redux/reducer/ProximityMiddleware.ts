@@ -6,6 +6,7 @@ import {IAppState} from '../_core/RootState';
 import {IReminderItem} from '../interface/IReminderItem';
 import * as loDash from "lodash";
 import {DEFAULT_PERIMETER_SIZE} from '../../globals/location';
+import {RandomService} from '../../services/random.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,31 +32,30 @@ export class ProximityMiddleware {
 
   proximityRequestUpdate = (store) => (next) => (action: IProximityReducerAction) => {
     if (action.type === ProximityReducerActionType.ProximityRequestUpdate) {
-      var getState: IAppState = store.getState();
       LocationService.getLocation().subscribe(
         (position: ILocationStamp) => {
-          var index = 0;
-          var reminders: Array<IProximityItem> = loDash.map(getState.reminder.reminders, (reminder: IProximityItem) => {
-            /**
-             * measure the distance from this reminder
-             */
-            const distance = LocationService.calculateDistanceFromLocation({
-              location1: reminder,
+
+          var getState: IAppState = store.getState();
+
+          var processed: Array<IProximityItem> = loDash.map(getState.reminder.reminders, (originalReminder: IReminderItem) => {
+
+            const distanceInMetersFromSelf = LocationService.calculateDistanceFromLocation({
+              location1: originalReminder,
               location2: position
             }).distance;
-            /**
-             * setup perimeter or default to global
-             */
-            const perimeter = reminder.perimeter || DEFAULT_PERIMETER_SIZE;
 
             return {
-              ...reminder,
-              distance: distance,
-              perimeter: perimeter,
-              entered: distance <= perimeter
-            } as IProximityItem;
-          }).sort(reminder => reminder.distance);
-          store.dispatch(this.proximityReducerAction.proximityRequestUpdateSuccess(reminders));
+              id: RandomService.generateRandomIdentifier(),
+              distance: distanceInMetersFromSelf,
+              perimeter: DEFAULT_PERIMETER_SIZE,
+              entered: distanceInMetersFromSelf <= DEFAULT_PERIMETER_SIZE,
+              reminder: originalReminder,
+            } as IProximityItem
+
+          });
+
+          store.dispatch(this.proximityReducerAction.proximityRequestUpdateSuccess(processed));
+
         },
         (err) => {
           store.dispatch(this.proximityReducerAction.proximityRequestUpdateError(null));

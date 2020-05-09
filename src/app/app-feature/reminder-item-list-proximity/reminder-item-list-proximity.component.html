@@ -11,7 +11,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let reminder of reminders$ | async; index as $index;">
-    <td>{{reminder.description}}</td>
+    <td>{{reminder.reminder.description}}</td>
     <td>{{reminder.distance}}</td>
     <td>{{reminder.perimeter}}</td>
     <td>{{reminder.entered}}</td>

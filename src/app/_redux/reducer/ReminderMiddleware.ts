@@ -54,8 +54,6 @@ export class ReminderMiddleware {
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,
         timestamp: new Date().getTime(),
-        completed: false,
-        deleted: false,
       } as IReminderItem))
     }
     next(action);
