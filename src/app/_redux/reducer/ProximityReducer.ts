@@ -28,7 +28,7 @@ export const ProximityReducer = (
     case ProximityReducerActionType.ProximityRemoveActionRequest: {
       return {
         ...state,
-        reminders: loDash.reject(state.reminders, action.payload)
+        reminders: loDash.reject(state.reminders, (removed) => action.payload.id === removed.id)
       };
     }
   }
