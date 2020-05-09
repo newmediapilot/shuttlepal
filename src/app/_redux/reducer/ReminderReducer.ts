@@ -67,7 +67,7 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderCompleteActionRequest: {
       return {
         ...state,
-        reminders: loDash.reject(state.reminders, action.payload),
+        reminders: loDash.reject(state.reminders, (completed) => action.payload.id === completed.id),
         completed: [...state.completed, action.payload],
       };
     }
@@ -81,7 +81,7 @@ export const ReminderReducer = (
       return {
         ...state,
         reminders: [...state.reminders, action.payload],
-        completed: loDash.reject(state.completed, action.payload),
+        completed: loDash.reject(state.completed, (uncompleted) => action.payload.id === uncompleted.id)
       };
     }
     case ReminderActionType.ReminderUnCompleteActionSuccess: {
@@ -93,7 +93,7 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderRemoveActionRequest: {
       return {
         ...state,
-        reminders: loDash.reject(state.reminders, action.payload),
+        reminders: loDash.reject(state.reminders, (deleted) => action.payload.id === deleted.id),
         deleted: [...state.deleted, action.payload],
       };
     }
@@ -106,7 +106,7 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderUnRemoveActionRequest: {
       return {
         ...state,
-        deleted: loDash.reject(state.deleted, action.payload),
+        deleted: loDash.reject(state.deleted, (restored) => action.payload.id === restored.id),
         reminders: [...state.reminders, action.payload],
       };
     }
@@ -119,7 +119,7 @@ export const ReminderReducer = (
     case ReminderActionType.ReminderEradicateActionRequest: {
       return {
         ...state,
-        deleted: loDash.reject(state.deleted, action.payload)
+        deleted: loDash.reject(state.deleted, (eradicated) => action.payload.id === eradicated.id),
       };
     }
     case ReminderActionType.ReminderEradicateActionSuccess: {
