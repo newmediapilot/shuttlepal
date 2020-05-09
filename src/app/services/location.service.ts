@@ -16,6 +16,8 @@ export interface IDistanceStamp {
 })
 export class LocationService {
 
+  static watchID: number;
+
   constructor() {
   }
 
@@ -71,5 +73,42 @@ export class LocationService {
    */
   static testIfCoordinatesValid(location: ILocationStamp): boolean {
     return GeoPosition.IsValidGpsCoordinate(location.latitude, location.longitude);
+  }
+
+  /**
+   * enable position based event handler,
+   * fires when position change is detected
+   */
+  static startWatchingPosition(): Observable<ILocationStamp> {
+    return new Observable((observer) => {
+      if ('geolocation' in navigator) {
+        if (!!this.watchID) {
+          observer.error('watch already initialized');
+        } else {
+          this.watchID = navigator.geolocation.watchPosition(
+            (position) => {
+              observer.next(position.coords);
+            },
+            (err) => {
+              observer.error({
+                description: 'Error fetching current position',
+                error: err
+              })
+            })
+        }
+      } else {
+        observer.error({
+          description: 'Geolocation not found in navigator',
+          error: null
+        });
+      }
+    });
+  }
+
+  /**
+   * destroy position watcher
+   */
+  static stopWatchingPosition() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 }
