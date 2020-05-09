@@ -9,7 +9,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "postbuild": "sed -i '' \"s/{git\\-hash}/$(git rev-parse --short HEAD)/g\" dist/*/index.html",
   "private": true,
   "dependencies": {
     "@angular-redux/router": "^9.0.0",
