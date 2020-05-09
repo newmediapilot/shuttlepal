@@ -5,15 +5,13 @@
   <tr>
     <td>descr</td>
     <td>prx_dst</td>
-    <td>prx_ent</td>
     <td>action</td>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let reminder of reminders$ | async; index as $index;">
     <td>{{reminder.description}}</td>
-    <td>{{reminder.proximity_distance}}</td>
-    <td>{{reminder.proximity_entered}}</td>
+    <td>{{reminder.distance}}</td>
     <button (click)="reminderCompleteActionRequest(reminder)">complete</button>
   </tr>
   </tbody>
