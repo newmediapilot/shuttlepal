@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import * as createHash from 'hash-generator';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class RandomService {
    */
   static generateRandomIdentifier(): string {
     var time = new Date().getTime().toString();
-    
-    return
+    var hash = createHash(40);
+    return [hash, time].join('-');
   }
 }
