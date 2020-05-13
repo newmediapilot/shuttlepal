@@ -18,7 +18,7 @@ export class ProximityMiddleware {
 
   proximityActivateWatchPosition = (store) => (next) => (action: IProximityReducerAction) => {
     if (action.type === ProximityReducerActionType.ProximityActivateWatchPosition) {
-      LocationService.getLocation().subscribe(
+      LocationService.startWatchingPosition().subscribe(
         (position: ILocationStamp) => {
           store.dispatch(this.proximityReducerAction.proximityRequestUpdate(null));
         },
