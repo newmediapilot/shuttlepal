@@ -7,6 +7,9 @@ import {ReminderMiddleware} from './reducer/ReminderMiddleware';
 import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
 import {RootMiddleware} from './_core/RootMiddleware';
+import {RootEpic} from './_core/RootEpic';
+import {createEpicMiddleware} from 'redux-observable';
+import * as loDash from 'lodash';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
@@ -18,6 +21,7 @@ export class StoreModule {
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
     private rootMiddleware: RootMiddleware,
+    private rootEpic: RootEpic
   ) {
 
     let enhancers = [];
@@ -28,11 +32,18 @@ export class StoreModule {
       ];
     }
 
+    const epicMiddleware = createEpicMiddleware();
+
     store.configureStore(
       rootReducer,
       AppState,
-      this.rootMiddleware.middleware(),
+      loDash.flatten([
+        this.rootMiddleware.middleware(),
+        epicMiddleware
+      ]),
       enhancers);
+
+    epicMiddleware.run(this.rootEpic.epic());
 
     ngReduxRouter.initialize();
   }
