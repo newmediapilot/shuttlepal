@@ -11,7 +11,6 @@ export enum ReminderActionType {
   ReminderAddActionSuccess = '[ReminderAction] ReminderAddActionSuccess',
   ReminderAddActionErrorDuplicate = '[ReminderAction] ReminderAddActionErrorDuplicate',
   ReminderAddActionErrorEmpty = '[ReminderAction] ReminderAddActionErrorEmpty',
-  ReminderAddActionErrorInvalidCoord = '[ReminderAction] ReminderAddActionErrorInvalidCoord',
   ReminderAddActionAddLocRequest = '[ReminderAction] ReminderAddActionAddLocRequest',
   ReminderAddActionAddLocSuccess = '[ReminderAction] ReminderAddActionAddLocSuccess',
   ReminderRemoveActionRequest = '[ReminderAction] ReminderRemoveActionRequest',
