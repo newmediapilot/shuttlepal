@@ -45,7 +45,7 @@ export class ProximityMiddleware {
             }).distance;
 
             return {
-              id: RandomService.generateRandomIdentifier(),
+              id: originalReminder.id,
               distance: distanceInMetersFromSelf,
               perimeter: DEFAULT_PERIMETER_SIZE,
               entered: distanceInMetersFromSelf <= DEFAULT_PERIMETER_SIZE,
