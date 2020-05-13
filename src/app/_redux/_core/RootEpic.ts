@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {combineEpics, Epic, ofType} from 'redux-observable';
-import {mapTo,} from 'rxjs/operators';
+import {mapTo, tap,} from 'rxjs/operators';
 import {Action} from 'redux';
 import {ReminderActionType} from '../reducer/ReminderAction';
 import {ProximityReducerActionType} from '../reducer/ProximityAction';
@@ -19,6 +19,9 @@ export class RootEpic {
         ReminderActionType.ReminderRemoveActionSuccess,
         ReminderActionType.ReminderUnRemoveActionSuccess
       ),
+      tap((item) => {
+        console.log('item', item);
+      }),
       mapTo({
         type: ProximityReducerActionType.ProximityRequestUpdate,
         payload: null
@@ -31,5 +34,5 @@ export class RootEpic {
       this.reminderUpdatedAction()
     )
   }
-  
+
 }
