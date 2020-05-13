@@ -8,6 +8,7 @@ import {AppState, IAppState} from './_core/RootState';
 import {rootReducer} from './_core/RootReducer';
 import {RootMiddleware} from './_core/RootMiddleware';
 import {LocationPingAction, LocationPingReducerActionType} from './reducer/LocationPingAction';
+import {RootEpic} from './_core/RootEpic';
 
 @NgModule({
   imports: [CommonModule, NgReduxModule, NgReduxRouterModule.forRoot()],
@@ -19,7 +20,7 @@ export class StoreModule {
     private devTools: DevToolsExtension,
     private ngReduxRouter: NgReduxRouter,
     private rootMiddleware: RootMiddleware,
-    private locationPingAction: LocationPingAction
+    private rootEpic: RootEpic
   ) {
 
     let enhancers = [];
@@ -37,7 +38,5 @@ export class StoreModule {
       enhancers);
 
     ngReduxRouter.initialize();
-
-    // store.dispatch(locationPingAction.startLocationPing(null));
   }
 }
