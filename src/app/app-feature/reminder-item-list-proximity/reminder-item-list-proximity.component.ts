@@ -30,6 +30,5 @@ export class ReminderItemListProximityComponent implements OnInit {
 
   reminderCompleteActionRequest(reminder: IProximityItem) {
     this.redux.dispatch(this.reminderAction.reminderCompleteActionRequest(reminder.reminder as IReminderItem));
-    this.redux.dispatch(this.proximityAction.proximityRemoveActionRequest(reminder as IProximityItem));
   }
 }
